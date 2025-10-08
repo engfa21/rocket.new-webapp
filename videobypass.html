@@ -80,19 +80,7 @@
         </div>
     </nav>
 
-    <!-- Live Update Notification -->
-    <div id="video-update-notification" class="hidden fixed top-20 right-4 z-50 bg-primary text-white p-4 rounded-lg shadow-lg max-w-sm transform transition-all duration-300">
-        <div class="flex items-center space-x-3">
-            <div class="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-            <div>
-                <p class="text-sm font-medium">New video available!</p>
-                <p class="text-xs opacity-90">Admin has updated the current video</p>
-            </div>
-            <button onclick="reloadCurrentVideo()" class="ml-2 text-white hover:text-primary-200 underline text-sm">
-                Watch Now
-            </button>
-        </div>
-    </div>
+
 
     <!-- Main Content -->
     <main class="flex-1">
@@ -392,29 +380,20 @@
             }
         }
         
-        function reloadCurrentVideo() {
-            // Hide notification
-            document.getElementById('video-update-notification').classList.add('hidden');
-            
-            // Reload the page to get the latest video
-            window.location.reload();
-        }
+
         
         function checkForVideoUpdates() {
             const adminCurrentVideo = localStorage.getItem('streamPayCurrentVideo');
-            
+
             if (adminCurrentVideo) {
                 const latestVideoData = JSON.parse(adminCurrentVideo);
-                
+
                 // Check if video has changed
                 if (!currentVideoData || latestVideoData.id !== currentVideoData.id || latestVideoData.youtubeId !== currentVideoData.youtubeId) {
-                    // Show update notification
-                    document.getElementById('video-update-notification').classList.remove('hidden');
-                    
-                    // Auto-hide after 10 seconds
-                    setTimeout(() => {
-                        document.getElementById('video-update-notification').classList.add('hidden');
-                    }, 10000);
+                    // Automatically switch to new video
+                    currentVideoData = latestVideoData;
+                    initializePlayer(latestVideoData.youtubeId);
+                    updateVideoInfo(latestVideoData);
                 }
             }
         }
