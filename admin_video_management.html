@@ -44,11 +44,6 @@
                         </div>
                         <span class="text-sm text-text-primary font-medium">Admin</span>
                     </div>
-                    <!-- Logout link removed -->
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
-                        </svg>
-                    </a>
                 </div>
                 
                 <!-- Mobile Menu Button -->
@@ -326,6 +321,7 @@
                         <label for="youtube-url" class="block text-sm font-medium text-text-primary mb-2">YouTube URL or Video ID</label>
                         <input type="text" id="youtube-url" name="youtubeUrl" class="input-field" placeholder="https://www.youtube.com/watch?v=VIDEO_ID or just VIDEO_ID" required />
                         <p class="mt-1 text-sm text-text-secondary">Paste the full YouTube URL or just the video ID (e.g., dQw4w9WgXcQ)</p>
+                        <div id="youtube-url-error" class="hidden mt-1 text-sm text-red-600"></div>
                     </div>
                     
                     <div>
@@ -382,7 +378,7 @@
                         </div>
                         
                         <div class="flex items-center">
-                            <input type="checkbox" id="set-as-current" name="setAsCurrent" class="rounded border-border" />
+                            <input type="checkbox" id="set-as-current" name="setAsCurrent" class="rounded border-border" checked />
                             <label for="set-as-current" class="ml-2 text-sm text-text-primary font-medium text-primary">🎬 Set as Current Video for Users</label>
                         </div>
                     </div>
@@ -419,6 +415,7 @@
                         <label for="live-youtube-url" class="block text-sm font-medium text-text-primary mb-2">Live Stream YouTube URL</label>
                         <input type="text" id="live-youtube-url" name="youtubeUrl" class="input-field" placeholder="https://www.youtube.com/watch?v=LIVE_VIDEO_ID" required />
                         <p class="mt-1 text-sm text-text-secondary">Enter the YouTube live stream URL or video ID</p>
+                        <div id="live-youtube-url-error" class="hidden mt-1 text-sm text-red-600"></div>
                     </div>
                     
                     <div>
@@ -460,7 +457,7 @@
 
     <script>
         // Video management system - functions like YouTube Studio
-        let videos = [
+        let videos = JSON.parse(localStorage.getItem('streamPayVideos')) || [
             {
                 id: 1,
                 title: "Advanced JavaScript Concepts",
@@ -492,54 +489,6 @@
                 revenue: 2679.33,
                 createdAt: "2025-01-20",
                 isCurrent: false
-            },
-            {
-                id: 3,
-                title: "Node.js Microservices Live Workshop",
-                youtubeId: "y6120QOlsfU",
-                description: "Live coding session building microservices with Node.js.",
-                price: 49.99,
-                category: "tutorial",
-                status: "published",
-                type: "livestream",
-                featured: true,
-                views: 2100,
-                purchases: 156,
-                revenue: 7798.44,
-                createdAt: "2025-01-10",
-                isCurrent: false
-            },
-            {
-                id: 4,
-                title: "Database Design Workshop",
-                youtubeId: "kfVsfOSbJY0",
-                description: "Complete guide to database design and optimization.",
-                price: 24.99,
-                category: "education",
-                status: "draft",
-                type: "video",
-                featured: false,
-                views: 0,
-                purchases: 0,
-                revenue: 0,
-                createdAt: "2025-01-25",
-                isCurrent: false
-            },
-            {
-                id: 5,
-                title: "AI & Machine Learning Premiere",
-                youtubeId: "aircAruvnKk",
-                description: "Introduction to AI and ML with Python - Scheduled premiere.",
-                price: 59.99,
-                category: "education",
-                status: "scheduled",
-                type: "premiere",
-                featured: true,
-                views: 0,
-                purchases: 0,
-                revenue: 0,
-                createdAt: "2025-02-01",
-                isCurrent: false
             }
         ];
 
@@ -548,11 +497,23 @@
 
         // Initialize the page
         document.addEventListener('DOMContentLoaded', function() {
+            loadVideosFromStorage();
             renderVideosTable();
             updateCurrentVideoDisplay();
             setupEventListeners();
             updateStats();
         });
+
+        function loadVideosFromStorage() {
+            const storedVideos = localStorage.getItem('streamPayVideos');
+            if (storedVideos) {
+                videos = JSON.parse(storedVideos);
+            }
+        }
+
+        function saveVideosToStorage() {
+            localStorage.setItem('streamPayVideos', JSON.stringify(videos));
+        }
 
         function setupEventListeners() {
             // Mobile menu toggle
@@ -573,6 +534,10 @@
             // Form submissions
             document.getElementById('video-form').addEventListener('submit', handleVideoSubmit);
             document.getElementById('live-form').addEventListener('submit', handleLiveSubmit);
+
+            // YouTube URL validation
+            document.getElementById('youtube-url').addEventListener('blur', validateYouTubeUrl);
+            document.getElementById('live-youtube-url').addEventListener('blur', validateLiveYouTubeUrl);
 
             // Search and filter
             document.getElementById('search-videos').addEventListener('input', filterVideos);
@@ -639,15 +604,22 @@
                 document.getElementById('current-video-title').textContent = currentVideo.title;
                 document.getElementById('current-video-id').textContent = `Video ID: ${currentVideo.youtubeId}`;
                 
-                // Save to localStorage for video player
-                localStorage.setItem('streamPayCurrentVideo', JSON.stringify({
+                // Save to localStorage for video player with proper data structure
+                const videoDataForPlayer = {
                     id: currentVideo.id,
                     title: currentVideo.title,
                     youtubeId: currentVideo.youtubeId,
                     description: currentVideo.description,
                     price: currentVideo.price,
-                    type: currentVideo.type
-                }));
+                    type: currentVideo.type,
+                    status: currentVideo.status,
+                    category: currentVideo.category,
+                    featured: currentVideo.featured,
+                    lastUpdated: Date.now()
+                };
+                
+                localStorage.setItem('streamPayCurrentVideo', JSON.stringify(videoDataForPlayer));
+                console.log('Updated current video in localStorage:', videoDataForPlayer);
             }
         }
 
@@ -669,6 +641,7 @@
             const video = videos.find(v => v.id === videoId);
             if (video) {
                 video.isCurrent = true;
+                saveVideosToStorage();
                 updateCurrentVideoDisplay();
                 renderVideosTable();
                 
@@ -698,6 +671,7 @@
             } else {
                 document.getElementById('modal-title').textContent = 'Add New Video';
                 form.reset();
+                document.getElementById('set-as-current').checked = true;
             }
             
             modal.classList.remove('hidden');
@@ -705,6 +679,7 @@
 
         function hideVideoModal() {
             document.getElementById('video-modal').classList.add('hidden');
+            document.getElementById('youtube-url-error').classList.add('hidden');
             currentEditingVideo = null;
         }
 
@@ -714,20 +689,63 @@
 
         function hideLiveModal() {
             document.getElementById('go-live-modal').classList.add('hidden');
+            document.getElementById('live-youtube-url-error').classList.add('hidden');
+        }
+
+        function validateYouTubeUrl() {
+            const urlInput = document.getElementById('youtube-url');
+            const errorDiv = document.getElementById('youtube-url-error');
+            const url = urlInput.value.trim();
+            
+            if (!url) {
+                errorDiv.classList.add('hidden');
+                return true;
+            }
+            
+            const youtubeId = extractYouTubeId(url);
+            if (!youtubeId) {
+                errorDiv.textContent = 'Please enter a valid YouTube URL or video ID';
+                errorDiv.classList.remove('hidden');
+                return false;
+            }
+            
+            errorDiv.classList.add('hidden');
+            return true;
+        }
+
+        function validateLiveYouTubeUrl() {
+            const urlInput = document.getElementById('live-youtube-url');
+            const errorDiv = document.getElementById('live-youtube-url-error');
+            const url = urlInput.value.trim();
+            
+            if (!url) {
+                errorDiv.classList.add('hidden');
+                return true;
+            }
+            
+            const youtubeId = extractYouTubeId(url);
+            if (!youtubeId) {
+                errorDiv.textContent = 'Please enter a valid YouTube URL or video ID';
+                errorDiv.classList.remove('hidden');
+                return false;
+            }
+            
+            errorDiv.classList.add('hidden');
+            return true;
         }
 
         function handleVideoSubmit(e) {
             e.preventDefault();
+            
+            if (!validateYouTubeUrl()) {
+                return;
+            }
+            
             const formData = new FormData(e.target);
             
             // Extract YouTube ID from URL if needed
             const youtubeUrl = formData.get('youtubeUrl');
             const youtubeId = extractYouTubeId(youtubeUrl);
-            
-            if (!youtubeId) {
-                alert('Please enter a valid YouTube URL or video ID');
-                return;
-            }
             
             const videoData = {
                 title: formData.get('title'),
@@ -752,7 +770,7 @@
                 showNotification('Video updated successfully!', 'success');
             } else {
                 // Add new video
-                videoData.id = Math.max(...videos.map(v => v.id)) + 1;
+                videoData.id = Math.max(...videos.map(v => v.id), 0) + 1;
                 videos.unshift(videoData);
                 showNotification('Video added successfully!', 'success');
             }
@@ -761,10 +779,13 @@
             if (videoData.isCurrent) {
                 videos.forEach(v => v.isCurrent = false);
                 const video = videos.find(v => v.id === (currentEditingVideo || videoData.id));
-                video.isCurrent = true;
+                if (video) {
+                    video.isCurrent = true;
+                }
                 updateCurrentVideoDisplay();
             }
             
+            saveVideosToStorage();
             renderVideosTable();
             updateStats();
             hideVideoModal();
@@ -772,19 +793,19 @@
 
         function handleLiveSubmit(e) {
             e.preventDefault();
+            
+            if (!validateLiveYouTubeUrl()) {
+                return;
+            }
+            
             const formData = new FormData(e.target);
             
             const youtubeUrl = formData.get('youtubeUrl');
             const youtubeId = extractYouTubeId(youtubeUrl);
             
-            if (!youtubeId) {
-                alert('Please enter a valid YouTube live stream URL or video ID');
-                return;
-            }
-            
             // Create new live stream entry
             const liveStream = {
-                id: Math.max(...videos.map(v => v.id)) + 1,
+                id: Math.max(...videos.map(v => v.id), 0) + 1,
                 title: formData.get('title'),
                 youtubeId: youtubeId,
                 description: formData.get('description'),
@@ -806,7 +827,8 @@
             // Add live stream
             videos.unshift(liveStream);
             
-            // Update UI
+            // Update storage and UI
+            saveVideosToStorage();
             updateCurrentVideoDisplay();
             renderVideosTable();
             updateStats();
@@ -846,6 +868,7 @@
                 const fallbackVideo = videos.find(v => v.status === 'published' && v.type === 'video');
                 if (fallbackVideo) {
                     fallbackVideo.isCurrent = true;
+                    saveVideosToStorage();
                     updateCurrentVideoDisplay();
                 }
             }
@@ -855,14 +878,19 @@
         }
 
         function extractYouTubeId(url) {
-            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+            if (!url) return null;
+            
+            // If it's already a valid YouTube ID (11 characters, alphanumeric + underscore + dash)
+            if (url.length === 11 && /^[a-zA-Z0-9_-]+$/.test(url)) {
+                return url;
+            }
+            
+            // Try to extract from various YouTube URL formats
+            const regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
             const match = url.match(regExp);
             
             if (match && match[2].length === 11) {
                 return match[2];
-            } else if (url.length === 11 && /^[a-zA-Z0-9_-]+$/.test(url)) {
-                // Likely a direct video ID
-                return url;
             }
             
             return null;
@@ -873,7 +901,12 @@
         }
 
         function previewVideo(youtubeId) {
-            window.open(`video_player.html?v=${youtubeId}`, '_blank');
+            // Test both video player pages
+            window.open(`video_player.html?preview=true&v=${youtubeId}`, '_blank');
+            // Also test videobypass.html if it exists
+            setTimeout(() => {
+                window.open(`videobypass.html?preview=true&v=${youtubeId}`, '_blank');
+            }, 1000);
         }
 
         function deleteVideo(videoId) {
@@ -886,10 +919,13 @@
                 // If we deleted the current video, set another one as current
                 if (wasCurrent && videos.length > 0) {
                     const fallback = videos.find(v => v.status === 'published') || videos[0];
-                    fallback.isCurrent = true;
-                    updateCurrentVideoDisplay();
+                    if (fallback) {
+                        fallback.isCurrent = true;
+                        updateCurrentVideoDisplay();
+                    }
                 }
                 
+                saveVideosToStorage();
                 renderVideosTable();
                 updateStats();
                 showNotification('Video deleted successfully.', 'info');
@@ -907,8 +943,54 @@
                 return matchesSearch && matchesStatus;
             });
             
-            // Re-render table with filtered results (simplified for demo)
-            renderVideosTable();
+            // Re-render table with filtered results
+            const tbody = document.getElementById('videos-table-body');
+            tbody.innerHTML = filteredVideos.map(video => `
+                <tr class="hover:bg-secondary-50 transition-colors duration-200">
+                    <td class="px-6 py-4">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-16 h-12 bg-secondary-100 rounded-lg flex items-center justify-center relative">
+                                <svg class="w-6 h-6 text-secondary-500" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M8 5v14l11-7z"/>
+                                </svg>
+                                ${video.isCurrent ? '<div class="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>' : ''}
+                                ${video.type === 'livestream' ? '<div class="absolute top-0 right-0 bg-red-500 text-white text-xs px-1 rounded">LIVE</div>' : ''}
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-medium text-text-primary">${video.title}</h3>
+                                <p class="text-sm text-text-secondary">ID: ${video.youtubeId}</p>
+                                <div class="flex items-center space-x-2 mt-1">
+                                    <span class="text-xs text-text-secondary">${video.category}</span>
+                                    ${video.featured ? '<span class="text-xs bg-accent-100 text-accent-700 px-2 py-0.5 rounded">Featured</span>' : ''}
+                                    ${video.isCurrent ? '<span class="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded">▶ CURRENT</span>' : ''}
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusBadgeClass(video.status)}">
+                            ${video.status.charAt(0).toUpperCase() + video.status.slice(1)}
+                        </span>
+                        <div class="text-xs text-text-secondary mt-1">${video.type}</div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="text-sm font-medium text-text-primary">${video.views.toLocaleString()}</div>
+                        <div class="text-xs text-text-secondary">${video.purchases} purchases</div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="text-sm font-medium text-text-primary">$${video.revenue.toLocaleString('en-US', { minimumFractionDigits: 2 })}</div>
+                        <div class="text-xs text-text-secondary">$${video.price}/view</div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center space-x-2">
+                            ${!video.isCurrent ? `<button onclick="setCurrentVideo(${video.id})" class="text-green-600 hover:text-green-700 text-xs font-medium bg-green-50 px-2 py-1 rounded" title="Set as Current">▶ Go Live</button>` : ''}
+                            <button onclick="editVideo(${video.id})" class="text-primary hover:text-primary-700 text-xs font-medium" title="Edit">Edit</button>
+                            <button onclick="previewVideo('${video.youtubeId}')" class="text-accent hover:text-accent-700 text-xs font-medium" title="Preview">Preview</button>
+                            <button onclick="deleteVideo(${video.id})" class="text-error-600 hover:text-error-700 text-xs font-medium" title="Delete">Delete</button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
         }
 
         function getStatusBadgeClass(status) {
@@ -997,6 +1079,9 @@
             
             // Update stats every 30 seconds
             setInterval(updateStats, 30000);
+            
+            // Sync videos to localStorage every minute
+            setInterval(saveVideosToStorage, 60000);
         });
     </script>
 <script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
