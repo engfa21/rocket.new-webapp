@@ -1,0 +1,1827 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    position: relative;
+    min-height: 100vh;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('PSX_20250908_095425.jpg') center top / cover no-repeat fixed;
+    opacity: 0.5;
+    z-index: -1;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    z-index: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+header {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1rem 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #000000;
+    text-shadow: 2px 2px 4px rgba(255,255,255,0.3);
+}
+
+.logo span {
+    color: #ff6b6b;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    align-items: center;
+}
+
+nav a {
+    color: #FFFFFF;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    order: 0;
+}
+
+nav a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+
+
+main {
+    padding-top: 100px;
+}
+
+.particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 300px;
+    z-index: -1;
+}
+.hero {
+    text-align: center;
+    padding: 2rem 0 2rem 0;
+    color: white;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    animation: fadeInUp 1s ease;
+}
+.hero p {
+    font-size: 1.2rem;
+    margin-top: 0.5rem;
+    margin-bottom: 2rem;
+    opacity: 1;
+    color: white;
+    animation: fadeInUp 1s ease 0.2s both;
+}
+
+.cta-button {
+    display: inline-block;
+    background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+    color: white;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    animation: fadeInUp 1s ease 0.4s both;
+}
+
+.cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+.section {
+    background: transparent;
+    margin: 2rem 0;
+    padding: 3rem 0;
+    border-radius: 20px;
+    box-shadow: none;
+    backdrop-filter: none;
+}
+
+.section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: #333;
+    position: relative;
+}
+
+#portfolio h2 {
+    color: white;
+}
+
+.section h2::after {
+    content: '';
+    display: block;
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+    margin: 1rem auto;
+    border-radius: 2px;
+}
+
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.video-card {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    border: 3px solid transparent;
+}
+
+.video-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    border-color: #ff6b6b;
+}
+
+.video-placeholder {
+    width: 100%;
+    height: 200px;
+    background: #f0f0f0;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.video-placeholder::before {
+    content: '▶';
+    font-size: 3rem;
+    opacity: 0.8;
+}
+
+.video-placeholder::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: shimmer 2s infinite;
+}
+
+.styles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.style-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.style-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+}
+
+.style-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: white;
+    margin-bottom: 1.5rem;
+}
+
+.cinematic { background: linear-gradient(45deg, #8B5CF6, #A78BFA); }
+.commercial { background: linear-gradient(45deg, #EF4444, #F87171); }
+.social { background: linear-gradient(45deg, #10B981, #34D399); }
+.corporate { background: linear-gradient(45deg, #3B82F6, #60A5FA); }
+.wedding { background: linear-gradient(45deg, #EC4899, #F472B6); }
+.documentary { background: linear-gradient(45deg, #F59E0B, #FBBF24); }
+
+.contact-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #555;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    padding: 1rem;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #ff6b6b;
+}
+
+.submit-btn {
+    grid-column: 1 / -1;
+    padding: 1rem 2rem;
+    background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Subscription Styles */
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.pricing-card {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.pricing-card.featured {
+    transform: scale(1.05);
+    border: 3px solid #ff6b6b;
+}
+
+.pricing-card.featured::before {
+    content: 'MOST POPULAR';
+    position: absolute;
+    top: 20px;
+    right: -40px;
+    background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+    color: white;
+    padding: 0.5rem 3rem;
+    font-size: 0.8rem;
+    font-weight: bold;
+    transform: rotate(45deg);
+}
+
+.pricing-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.pricing-card.featured:hover {
+    transform: scale(1.05) translateY(-10px);
+}
+
+.plan-name {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.plan-price {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #ff6b6b;
+    margin-bottom: 0.5rem;
+}
+
+.plan-price span {
+    font-size: 1rem;
+    color: #666;
+}
+
+.plan-features {
+    list-style: none;
+    margin: 2rem 0;
+    text-align: left;
+}
+
+.plan-features li {
+    padding: 0.5rem 0;
+    position: relative;
+    padding-left: 2rem;
+}
+
+.plan-features li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #10B981;
+    font-weight: bold;
+}
+
+.plan-features li.unavailable {
+    color: #999;
+    text-decoration: line-through;
+}
+
+.plan-features li.unavailable::before {
+    content: '✗';
+    color: #EF4444;
+}
+
+.subscribe-btn {
+    width: 100%;
+    padding: 1rem 2rem;
+    background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+}
+
+.subscribe-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.subscribe-btn.current-plan {
+    background: #10B981;
+    cursor: default;
+}
+
+.subscribe-btn.current-plan:hover {
+    transform: none;
+}
+
+/* Modal Styles */
+.modal {
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    box-sizing: border-box;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+}
+
+/* Override for auth modal to use login2.css styles */
+#authModal .modal-content {
+    background: #fff;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding: 20px 30px;
+    width: 350px;
+    height: 500px;
+    max-width: none;
+}
+
+/* General modal content for other modals */
+.modal-content:not(#authModal .modal-content) {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.close {
+    position: absolute;
+    right: 1.5rem;
+    top: 1.5rem;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #999;
+    transition: color 0.3s ease;
+}
+
+.close:hover {
+    color: #333;
+}
+
+.modal h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #333;
+    width: 100%;
+}
+
+.modal .form-group {
+    margin-bottom: 1rem;
+    width: 100%;
+    max-width: 400px;
+}
+
+/* General modal input styles - exclude auth modal */
+.modal input:not(#authModal input) {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    box-sizing: border-box;
+}
+
+/* General modal button styles - exclude auth modal */
+.modal button:not(#authModal button) {
+    width: 100%;
+    max-width: 400px;
+    padding: 0.8rem;
+    background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 0.3rem;
+}
+
+.modal button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.auth-switch {
+    text-align: center;
+    margin-top: 0.5rem;
+    color: #666;
+    width: 100%;
+}
+
+.auth-switch a {
+    color: #ff6b6b;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Subscription Modal Specific Styles */
+/* Reuse login.css styles for subscription modal */
+#subscriptionModal {
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+#subscriptionModal .payment-container {
+    width: 400px;
+    height: 550px;
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding: 20px 30px;
+    display: block;
+}
+
+#subscriptionModal .payment-header h1 {
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+        "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#subscriptionModal .payment-header p {
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+        "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+    font-size: 14px;
+    color: #747474;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+#subscriptionModal #selectedPlan {
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+        "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#subscriptionModal #paypal-button-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+#subscriptionModal #paypal-button-container .paypal-button {
+    width: 100%;
+    max-width: 300px;
+    min-height: 40px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+#subscriptionModal #paypal-button-container .paypal-button:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    transform: translateY(-1px);
+}
+
+#subscriptionModal .success-message {
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+        "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+    font-size: 14px;
+    color: #27ae60;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* Responsive adjustments for subscription modal */
+@media (max-width: 600px) {
+    #subscriptionModal .payment-container {
+        width: 95vw;
+        height: auto;
+        padding: 1rem;
+        margin: 1rem;
+    }
+}
+
+/* Dropdown Menu Styles */
+.dropdown {
+    position: relative;
+}
+
+/* From Uiverse.io by vinodjangid07 */
+#checkbox {
+  display: none;
+}
+
+.toggle {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition-duration: .5s;
+}
+
+.bars {
+  width: 100%;
+  height: 4px;
+  background-color: rgb(176, 92, 255);
+  border-radius: 4px;
+  position: absolute;
+  left: 0;
+  transition-duration: .5s;
+}
+
+#bar1 {
+  top: 0;
+  width: 70%;
+}
+
+#bar2 {
+  top: 8px;
+  transition-duration: .8s;
+}
+
+#bar3 {
+  top: 16px;
+  width: 70%;
+}
+
+#checkbox:checked + .toggle #bar1 {
+  width: 100%;
+  transform: rotate(45deg);
+  top: 8px;
+  left: 50%;
+  transform-origin: center;
+}
+
+#checkbox:checked + .toggle #bar2 {
+  transform: scaleX(0);
+  top: 8px;
+  left: 50%;
+  transform-origin: center;
+}
+
+#checkbox:checked + .toggle #bar3 {
+  width: 100%;
+  transform: rotate(-45deg);
+  top: 8px;
+  left: 50%;
+  transform-origin: center;
+}
+
+#checkbox:checked + .toggle {
+  transition-duration: .5s;
+  transform: rotate(180deg);
+}
+
+#checkbox:checked ~ .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    min-width: 180px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    border-radius: 12px;
+    z-index: 1000;
+    list-style: none;
+    padding: 8px 0;
+    margin: 8px 0 0 0;
+    border: 1px solid rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
+    animation: dropdownSlideIn 0.2s ease-out;
+}
+
+@keyframes dropdownSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown-menu li {
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    transition: all 0.2s ease;
+}
+
+.dropdown-menu li:last-child {
+    border-bottom: none;
+}
+
+.dropdown-menu li:hover {
+    background: linear-gradient(135deg, rgba(255,107,107,0.05), rgba(255,142,133,0.05));
+    transform: translateX(2px);
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 14px 20px;
+    color: #333;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    position: relative;
+    overflow: hidden;
+}
+
+.dropdown-menu a::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 100%;
+    background: linear-gradient(90deg, #ff6b6b, #ff8e53);
+    transition: width 0.3s ease;
+    z-index: -1;
+}
+
+.dropdown-menu a:hover::before {
+    width: 100%;
+}
+
+.dropdown-menu a:hover {
+    color: white;
+    transform: translateX(4px);
+}
+
+/* From Uiverse.io by akshat-patel28 */
+.form-container {
+  width: 350px;
+  min-height: 500px;
+  max-height: 600px;
+  overflow-y: auto;
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  padding: 20px 30px;
+}
+
+.title {
+  text-align: center;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+        "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  margin: 10px 0 30px 0;
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-bottom: 15px;
+}
+
+.input {
+  border-radius: 20px;
+  border: 1px solid #c0c0c0;
+  outline: 0 !important;
+  box-sizing: border-box;
+  padding: 12px 15px;
+}
+
+/* Smaller inputs for signup form */
+#signupForm .input {
+  padding: 8px 12px;
+  font-size: 14px;
+}
+
+.page-link {
+  text-decoration: underline;
+  margin: 0;
+  text-align: end;
+  color: #747474;
+  text-decoration-color: #747474;
+}
+
+.page-link-label {
+  cursor: pointer;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+        "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.page-link-label:hover {
+  color: #000;
+}
+
+.form-btn {
+  padding: 10px 15px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+        "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  border-radius: 20px;
+  border: 0 !important;
+  outline: 0 !important;
+  background: teal;
+  color: white;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.form-btn:active {
+  box-shadow: none;
+}
+
+.sign-up-label {
+  margin: 0;
+  font-size: 10px;
+  color: #747474;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+        "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.sign-up-link {
+  margin-left: 1px;
+  font-size: 11px;
+  text-decoration: underline;
+  text-decoration-color: teal;
+  color: teal;
+  cursor: pointer;
+  font-weight: 800;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+        "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.buttons-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-top: 20px;
+  gap: 15px;
+}
+
+.apple-login-button,
+    .google-login-button {
+  border-radius: 20px;
+  box-sizing: border-box;
+  padding: 10px 15px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+        rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+        "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-size: 11px;
+  gap: 5px;
+}
+
+.apple-login-button {
+  background-color: #000;
+  color: #fff;
+  border: 2px solid #000;
+}
+
+.google-login-button {
+  background: teal;
+  color: white;
+  border: 0 !important;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.apple-icon,
+    .google-icon {
+  font-size: 18px;
+  margin-bottom: 1px;
+}
+
+/* Login Form Enhancements */
+.error-message {
+    color: #ef4444;
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.remember-me {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.remember-me label {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.remember-me label:hover {
+    color: #ff6b6b;
+}
+
+.remember-me input[type="checkbox"] {
+    margin-right: 0.75rem;
+    width: 18px;
+    height: 18px;
+    accent-color: #ff6b6b;
+    cursor: pointer;
+}
+
+.forgot-password {
+    color: #ff6b6b;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    background: rgba(255, 107, 107, 0.1);
+}
+
+.forgot-password:hover {
+    background: rgba(255, 107, 107, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+}
+
+/* Smaller signup form adjustments */
+#signupForm {
+    max-width: 350px;
+    width: 100%;
+    padding: 0 1rem;
+    box-sizing: border-box;
+}
+
+#signupForm input {
+    padding: 0.8rem;
+    font-size: 0.9rem;
+}
+
+/* FAQ Section Styles */
+.faq-container {
+    max-width: 800px;
+    margin: 0 auto 3rem;
+}
+
+.faq-item {
+    background: white;
+    border-radius: 15px;
+    margin-bottom: 1rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.faq-item:hover {
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    transform: translateY(-2px);
+}
+
+.faq-question {
+    padding: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    transition: all 0.3s ease;
+}
+
+.faq-question:hover {
+    background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+}
+
+.faq-question h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #333;
+    font-weight: 600;
+}
+
+.faq-toggle {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ff6b6b;
+    transition: transform 0.3s ease;
+}
+
+.faq-item.active .faq-toggle {
+    transform: rotate(45deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    background: white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-radius: 0 0 15px 15px;
+}
+
+.faq-item.active .faq-answer {
+    padding: 0 1.5rem 1.5rem;
+}
+
+.faq-answer p {
+    margin: 1rem 0 0;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Contact Form Section */
+.contact-form-section {
+    background: transparent;
+    border-radius: 20px;
+    padding: 3rem;
+    text-align: center;
+    color: white;
+    margin-top: 2rem;
+}
+
+.contact-form-section h3 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: white;
+}
+
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.contact-form .form-group {
+    margin-bottom: 1rem;
+}
+
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    background: white;
+    color: #333;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+    color: #999;
+}
+
+.contact-form input:focus,
+.contact-form select:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: #ff6b6b;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+}
+
+.contact-form select {
+    color: #333;
+    background: white;
+}
+
+.contact-form textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.contact-form .submit-btn {
+    margin: 1rem auto 0;
+    padding: 1rem 2rem;
+    background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    display: block;
+    width: auto;
+    min-width: 200px;
+}
+
+.contact-form .submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+
+/* Responsive adjustments for FAQ and Contact */
+@media (max-width: 768px) {
+    .faq-question {
+        padding: 1rem;
+    }
+
+    .faq-question h3 {
+        font-size: 1rem;
+    }
+
+    .faq-item.active .faq-answer {
+        padding: 0 1rem 1rem;
+    }
+
+    .contact-form-section {
+        padding: 2rem 1rem;
+    }
+
+    .contact-form-section h3 {
+        font-size: 1.5rem;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+
+    .contact-form input,
+    .contact-form select,
+    .contact-form textarea {
+        padding: 0.8rem;
+    }
+}
+
+
+
+footer {
+    background: rgba(0,0,0,0.8);
+    color: white;
+    text-align: center;
+    padding: 2rem 0;
+    margin-top: 3rem;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .header-content {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    nav ul {
+        gap: 1rem;
+    }
+}
+
+/* Payment Form Styles */
+.payment-container {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    padding: 1.5rem;
+    width: 90%;
+    max-width: 400px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.payment-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+}
+
+#selectedPlan {
+    margin-bottom: 0.5rem;
+}
+
+#selectedPlan div {
+    padding: 0.4rem !important;
+    margin-bottom: 0.2rem !important;
+    border-radius: 6px !important;
+}
+
+#selectedPlan h3 {
+    font-size: 1.2rem !important;
+    margin-bottom: 0.3rem !important;
+}
+
+#selectedPlan div div {
+    font-size: 1.3rem !important;
+    margin-bottom: 0.2rem !important;
+}
+
+#selectedPlan p {
+    font-size: 0.8rem !important;
+    margin: 0 !important;
+}
+
+.payment-header {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.payment-header h1 {
+    color: #333;
+    margin-bottom: 3px;
+    font-size: 1.3rem;
+}
+
+.payment-header p {
+    color: #666;
+    font-size: 0.8rem;
+}
+
+.payment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.payment-form .form-group {
+    margin-bottom: 0.5rem;
+    width: 100%;
+    max-width: 400px;
+}
+
+.payment-form input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.payment-form input:focus {
+    outline: none;
+    border-color: #ff6b6b;
+}
+
+.card-details {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 0.3rem;
+    width: 100%;
+    max-width: 400px;
+}
+
+.card-details input {
+    padding: 0.8rem;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.card-details input:focus {
+    outline: none;
+    border-color: #ff6b6b;
+}
+
+.card-details input:nth-child(1) {
+    grid-column: 1 / 3;
+}
+
+.submit-btn {
+    width: 100%;
+    max-width: 400px;
+    padding: 0.8rem;
+    background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 0.3rem;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.success-message {
+    color: #27ae60;
+    font-size: 0.85rem;
+    margin-top: 5px;
+    display: block;
+}
+
+.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s ease-in-out infinite;
+    margin-left: 10px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+@media (max-width: 600px) {
+    .payment-container {
+        padding: 1rem;
+        margin: 0.5rem;
+        max-width: 95vw;
+    }
+
+    .card-details {
+        grid-template-columns: 1fr;
+        gap: 0.3rem;
+    }
+
+    .card-details input:nth-child(1) {
+        grid-column: 1;
+    }
+
+    .payment-header h1 {
+        font-size: 1.2rem;
+    }
+
+    .payment-form input {
+        padding: 0.7rem;
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+
+    .submit-btn {
+        padding: 0.7rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Welcome Modal Styles */
+.welcome-modal {
+    position: fixed;
+    z-index: 3000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    animation: modalFadeIn 0.3s ease-out;
+}
+
+.welcome-content {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    max-width: 400px;
+    width: 90%;
+    position: relative;
+    overflow: hidden;
+    animation: welcomeSlideUp 0.5s ease-out;
+}
+
+.welcome-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #ff6b6b, #ff8e53);
+}
+
+.welcome-icon {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    animation: bounceIn 0.6s ease-out;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+}
+
+.welcome-content h2 {
+    color: white;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.welcome-content p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.welcome-progress {
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 1rem;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #ff6b6b, #ff8e53);
+    border-radius: 2px;
+    width: 0%;
+    animation: progressFill 2s ease-out 0.5s forwards;
+}
+
+@keyframes modalFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes welcomeSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes bounceIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes progressFill {
+    to { width: 100%; }
+}
+
+/* Responsive adjustments for welcome modal */
+@media (max-width: 480px) {
+    .welcome-content {
+        padding: 2rem 1.5rem;
+        margin: 1rem;
+    }
+
+    .welcome-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+
+    .welcome-content h2 {
+        font-size: 1.5rem;
+    }
+
+    .welcome-content p {
+        font-size: 1rem;
+    }
+}
+
+.hamburger-menu {
+    position: relative;
+    display: inline-block;
+    z-index: 100;
+}
+
+.menu-btn {
+    background: none;
+    border: none;
+    color: #333;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    transition: background 0.3s;
+}
+
+.menu-btn:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-content {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background: white;
+    min-width: 250px;
+    border-radius: 8px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+}
+
+.dropdown-content.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-content a {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    text-decoration: none;
+    color: #333;
+    border-bottom: 1px solid #f1f1f1;
+    transition: background 0.2s;
+}
+
+.dropdown-content a i {
+    margin-right: 12px;
+    color: #3498db;
+    width: 20px;
+    text-align: center;
+}
+
+.dropdown-content a:hover {
+    background: #f8f9fa;
+}
+
+.dropdown-content .logout {
+    color: #e74c3c;
+    border-top: 2px solid #f1f1f1;
+    border-bottom: none;
+    margin-top: 5px;
+}
+
+.dropdown-content .logout i {
+    color: #e74c3c;
+}
+
+/* Responsive Design CSS */
+/* Add this in the head section of your HTML */
+* {
+    box-sizing: border-box;
+}
+
+/* Responsive container */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* Media Queries for different screen sizes */
+/* Mobile phones (portrait) */
+@media (max-width: 576px) {
+    /* Add your mobile styles here */
+    .header-content {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
+
+    nav ul {
+        gap: 1rem;
+        justify-content: center;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    .video-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .styles-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pricing-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-form .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .hamburger-menu {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}
+
+/* Tablets and small screens */
+@media (min-width: 577px) and (max-width: 768px) {
+    /* Add your tablet styles here */
+    .header-content {
+        gap: 0.5rem;
+    }
+
+    .video-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    .styles-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    .pricing-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+}
+
+/* Medium screens */
+@media (min-width: 769px) and (max-width: 992px) {
+    /* Add your medium screen styles here */
+    .video-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    .styles-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .pricing-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+}
+
+/* Large screens */
+@media (min-width: 993px) and (max-width: 1200px) {
+    /* Add your large screen styles here */
+    .video-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+
+    .styles-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    .pricing-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+}
+
+/* Extra large screens */
+@media (min-width: 1201px) {
+    /* Add your extra large screen styles here */
+    .container {
+        max-width: 1400px;
+    }
+}
+
+/* Make images responsive */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Video Editing Styles heading color */
+#styles h2 {
+    color: white;
+}
+
+/* Pricing section heading color */
+#pricing h2 {
+    color: white;
+}
+
+/* FAQ section heading color */
+#faq h2 {
+    color: white;
+}

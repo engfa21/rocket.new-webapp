@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exclusive Live Stream - Pay Per View</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(90deg, #ff0000, #ff8a00);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+        
+        .payment-container {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px auto;
+            max-width: 600px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        
+        .price-tag {
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #ff8a00;
+        }
+        
+        .benefits {
+            text-align: left;
+            margin: 25px 0;
+            padding: 0 20px;
+        }
+        
+        .benefits li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .video-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 16px 40px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s;
+            margin: 20px 0;
+        }
+
+        .video-btn:hover {
+            background: #218838;
+            transform: scale(1.05);
+        }
+
+        .video-container {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 25px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            display: none;
+        }
+        
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            border-radius: 10px;
+            overflow: hidden;
+            background: #000;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        #youtube-player {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 10px;
+        }
+        
+        .player-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .control-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.3s;
+        }
+        
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .status-card {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        .live {
+            background: #ff4d4d;
+            box-shadow: 0 0 10px #ff4d4d;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+        
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+        
+        .logo {
+            height: 45px;
+            opacity: 0.8;
+            transition: opacity 0.3s, transform 0.3s;
+        }
+        
+        .logo:hover {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+        
+        .payment-success {
+            display: none;
+            background: rgba(40, 167, 69, 0.2);
+            border: 1px solid #28a745;
+            color: #b8f0c4;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .loading-spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid #ff8a00;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        .back-to-payment {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Comment Section Styling */
+        .comment-section {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .comment-section h3 {
+            color: #fff;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .comment-section h3 i {
+            color: #ff8a00;
+        }
+
+        .comment-input-container {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+
+        .comment-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .comment-input:focus {
+            border-color: #ff8a00;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 0 3px rgba(255, 138, 0, 0.2);
+        }
+
+        .comment-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .comment-submit-btn {
+            background: linear-gradient(135deg, #ff8a00, #ff6b00);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            min-width: 80px;
+            justify-content: center;
+        }
+
+        .comment-submit-btn:hover {
+            background: linear-gradient(135deg, #ff6b00, #ff4500);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 138, 0, 0.4);
+        }
+
+        .comment-submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .comments-container {
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 10px;
+            scrollbar-width: thin;
+            scrollbar-color: #ff8a00 rgba(255, 255, 255, 0.1);
+        }
+
+        .comments-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .comments-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .comments-container::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #ff8a00, #ff6b00);
+            border-radius: 10px;
+        }
+
+        .comments-container::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #ff6b00, #ff4500);
+        }
+
+        .no-comments {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-style: italic;
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+        }
+
+        .comment {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 15px 20px;
+            margin-bottom: 12px;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .comment::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, #ff8a00, #ff6b00);
+            border-radius: 2px 0 0 2px;
+        }
+
+        .comment:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 138, 0, 0.3);
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .comment-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .comment-text {
+            color: #fff;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            flex: 1;
+            word-wrap: break-word;
+        }
+
+        .comment-time {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.8rem;
+            font-weight: 500;
+            white-space: nowrap;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 4px 8px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Comment fade-in animation */
+        @keyframes commentFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .comment {
+            animation: commentFadeIn 0.3s ease-out;
+        }
+
+        /* Mobile responsiveness for comments */
+        @media (max-width: 768px) {
+            .comment-input-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .comment-input {
+                width: 100%;
+            }
+
+            .comment-submit-btn {
+                width: 100%;
+                padding: 14px 20px;
+            }
+
+            .comments-container {
+                max-height: 300px;
+            }
+
+            .comment-content {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .comment-time {
+                align-self: flex-end;
+            }
+        }
+
+/* Force hide any YouTube branding that might appear */
+.ytp-youtube-button,
+.ytp-branding-button,
+.ytp-branding-logo,
+[class*="youtube"],
+[title*="YouTube"],
+[aria-label*="YouTube"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Ensure proper spacing when YouTube button is removed */
+.ytp-chrome-controls {
+    justify-content: space-between !important;
+}
+
+.ytp-right-controls {
+    display: flex !important;
+    gap: 4px !important;
+}
+
+/* Hide the empty space where YouTube button was */
+.ytp-button.ytp-youtube-button:empty,
+.ytp-branding-button:empty {
+    display: none !important;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-crown"></i> Exclusive Live Stream</h1>
+            <p class="subtitle">Private pay-per-view content available only on this website</p>
+            <p>Gain access to our exclusive livestream for a one-time payment</p>
+        </header>
+
+        <div style="text-align:center; margin: 20px 0;">
+            <img src="5051229759320731446.jpg" alt="Exclusive Stream" style="width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.5);" />
+        </div>
+        
+        <div class="payment-container" id="payment-page">
+            <h2><i class="fas fa-ticket-alt"></i> Get Your Access Pass</h2>
+            <p>One-time payment for unlimited access to this exclusive stream</p>
+            
+            <div class="price-tag">$20.00</div>
+            
+            <div class="benefits">
+                <h3>Your access includes:</h3>
+                <ul>
+                    <li><i class="fas fa-check-circle" style="color: #28a745;"></i> Watch the exclusive livestream</li>
+                    <li><i class="fas fa-check-circle" style="color: #28a745;"></i> Access to stream recording for 48 hours</li>
+                    <li><i class="fas fa-check-circle" style="color: #28a745;"></i> Live chat with other viewers</li>
+                    <li><i class="fas fa-check-circle" style="color: #28a745;"></i> One-time payment, no subscription</li>
+                </ul>
+            </div>
+            
+            <a href="https://www.paypal.com/ncp/payment/YDDHGYRZ3ZJ5C" class="video-btn" id="video-button">
+                <i class="fas fa-credit-card"></i> Pay with PayPal
+            </a>
+        </div>
+        
+        <div class="video-container" id="video-page">
+            <h2><i class="fas fa-video"></i> Exclusive Live Stream</h2>
+            <div class="video-wrapper">
+                <!-- YouTube Player -->
+                <div id="youtube-player"></div>
+            </div>
+            
+            <div class="status-card">
+                <p><span class="status-indicator live"></span> <span class="highlight">Live Status:</span> <span id="status-text">Live Now</span></p>
+                <p><span class="highlight">Viewers:</span> <span id="viewer-count">42</span> watching now</p>
+                <p><span class="highlight">Uptime:</span> <span id="uptime">01:28:43</span></p>
+            </div>
+
+            <div class="video-info">
+                <h3>Exclusive Content: Advanced Web Development</h3>
+                <p>This is a private stream available only to paid viewers. Please do not share or record this content.</p>
+            </div>
+
+            <div class="comment-section">
+                <h3><i class="fas fa-comments"></i> Live Chat</h3>
+                <div class="comment-input-container">
+                    <input type="text" id="comment-input" class="comment-input" placeholder="Type your comment..." maxlength="200">
+                    <button id="comment-submit" class="comment-submit-btn">
+                        <i class="fas fa-paper-plane"></i> Send
+                    </button>
+                </div>
+            </div>
+
+                <div id="comments-container" class="comments-container">
+                    <div class="no-comments">Be the first to comment!</div>
+                </div>
+            </div>
+            
+        
+        <div class="footer">
+            <p>This exclusive live stream is hosted privately</p>
+            <div class="logo-container" style="display: flex; justify-content: center; align-items: center; gap: 20px; margin: 15px 0;">
+                <img src="https://www.youtube.com/img/desktop/yt_1200.png" alt="YouTube" class="logo" style="height: 35px; width: auto;">
+            </div>
+            <p>© 2025 Private Stream. All rights reserved.</p>
+        </div>
+    </div>
+
+    <!-- YouTube API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        // Page load handler
+        window.addEventListener('load', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const isSuccess = urlParams.get('success') === 'true';
+            const hasPaid = localStorage.getItem('payment_success') === 'true';
+
+            if (isSuccess || hasPaid) {
+                // Payment successful or already paid, show video page
+                document.getElementById('payment-page').style.display = 'none';
+                document.getElementById('video-page').style.display = 'block';
+
+                if (isSuccess) {
+                    // Store payment success and remove success param from URL
+                    localStorage.setItem('payment_success', 'true');
+                    history.replaceState({paid: true}, '', window.location.pathname);
+                } else {
+                    history.replaceState({paid: true}, '', window.location.pathname);
+                }
+
+                initializePlayer();
+            } else {
+                // Show payment page by default
+                document.getElementById('payment-page').style.display = 'block';
+                document.getElementById('video-page').style.display = 'none';
+            }
+        });
+
+        // Prevent going back to payment page
+        window.addEventListener('popstate', function(event) {
+            const hasPaid = localStorage.getItem('payment_success') === 'true';
+            if (hasPaid && event.state && event.state.paid) {
+                // Stay on video page, push a new state to prevent further back
+                document.getElementById('payment-page').style.display = 'none';
+                document.getElementById('video-page').style.display = 'block';
+                history.pushState({paid: true}, '', window.location.pathname);
+            }
+        });
+
+
+
+        // YouTube Player API
+        let player;
+        let streamStartTime = null;
+        let isLiveStream = false;
+        const videoId = "g1TorF6qjW0"; // Replace with your YouTube video ID
+
+        function hideYouTubeBranding() {
+            // More comprehensive YouTube button removal
+            const youtubeSelectors = [
+                // Primary YouTube button selectors
+                '.ytp-youtube-button',
+                '.ytp-button.ytp-youtube-button',
+                '.ytp-chrome-controls .ytp-button[aria-label*="YouTube"]',
+                '.ytp-chrome-controls .ytp-button[title*="YouTube"]',
+
+                // Button between settings and fullscreen (specific targeting)
+                '.ytp-settings-button + .ytp-button:not(.ytp-fullscreen-button)',
+                '.ytp-right-controls .ytp-button:nth-last-child(2)',
+                '.ytp-chrome-controls .ytp-button:nth-child(3)',
+
+                // Alternative positions and fallbacks
+                '.ytp-chrome-top-buttons .ytp-button:not(.ytp-fullscreen-button):not(.ytp-settings-button)',
+                '.ytp-right-controls .ytp-button:not(.ytp-fullscreen-button):not(.ytp-settings-button)',
+
+                // Generic YouTube branding
+                '[class*="youtube-button"]',
+                '[title*="YouTube"]',
+                '[aria-label*="YouTube"]',
+                'a[href*="youtube.com"]'
+            ];
+
+            youtubeSelectors.forEach(selector => {
+                const elements = document.querySelectorAll(selector);
+                elements.forEach(element => {
+                    // Multiple removal strategies
+                    element.style.display = 'none';
+                    element.style.visibility = 'hidden';
+                    element.style.opacity = '0';
+                    element.style.pointerEvents = 'none';
+                    element.style.width = '0';
+                    element.style.height = '0';
+                    element.style.margin = '0';
+                    element.style.padding = '0';
+                    element.remove();
+                });
+            });
+
+            // Specifically target the button between settings and fullscreen
+            const settingsButton = document.querySelector('.ytp-settings-button');
+            const fullscreenButton = document.querySelector('.ytp-fullscreen-button');
+
+            if (settingsButton && fullscreenButton) {
+                const allButtons = document.querySelectorAll('.ytp-chrome-controls .ytp-button');
+                allButtons.forEach((button, index) => {
+                    if (button !== settingsButton && button !== fullscreenButton) {
+                        // This is likely the YouTube button
+                        button.style.display = 'none';
+                        button.remove();
+                    }
+                });
+            }
+
+            // Remove any remaining YouTube logos/branding
+            const allElements = document.querySelectorAll('*');
+            allElements.forEach(element => {
+                const style = window.getComputedStyle(element);
+                const background = style.backgroundImage;
+
+                if (background && background.includes('youtube')) {
+                    element.style.display = 'none';
+                    element.remove();
+                }
+            });
+        }
+
+        function initializePlayer() {
+            player = new YT.Player('youtube-player', {
+                height: '100%',
+                width: '100%',
+                videoId: videoId,
+                playerVars: {
+                    'autoplay': 1,
+                    'controls': 1,
+                    'rel': 0,
+                    'modestbranding': 1,
+                    'showinfo': 0,
+                    'fs': 1,
+                    'disablekb': 1,
+                    'iv_load_policy': 3,
+                    'cc_load_policy': 0,
+                    'playsinline': 1,
+                    'origin': window.location.origin,
+                    'autohide': 1,
+                    'wmode': 'transparent',
+                    'enablejsapi': 1,
+                    'widget_referrer': window.location.href,
+                    'hl': 'en',
+                    'color': 'white',
+                    // Additional parameters to minimize branding
+                    'branding': 0,
+                    'logo': 0,
+                    'modestbranding': 1,
+                    'showinfo': 0,
+                    'showsearch': 0,
+                    'showbranding': 0
+                },
+                events: {
+                    'onStateChange': onPlayerStateChange,
+                    'onReady': function(event) {
+                        console.log('Player ready - removing YouTube button...');
+
+                        // Enhanced removal function
+                        const removeYouTubeButton = function() {
+                            // Multiple removal attempts with different strategies
+
+                            // Strategy 1: Direct selector removal
+                            hideYouTubeBranding();
+
+                            // Strategy 2: Remove by position in controls
+                            const controls = document.querySelector('.ytp-chrome-controls');
+                            if (controls) {
+                                const buttons = controls.children;
+                                for (let i = 0; i < buttons.length; i++) {
+                                    const btn = buttons[i];
+                                    const isSettings = btn.classList.contains('ytp-settings-button');
+                                    const isFullscreen = btn.classList.contains('ytp-fullscreen-button');
+
+                                    if (!isSettings && !isFullscreen) {
+                                        btn.style.display = 'none';
+                                        btn.remove();
+                                    }
+                                }
+                            }
+
+                            // Strategy 3: Remove any button with YouTube-related attributes
+                            const allButtons = document.querySelectorAll('.ytp-button');
+                            allButtons.forEach(button => {
+                                const title = button.getAttribute('title') || '';
+                                const ariaLabel = button.getAttribute('aria-label') || '';
+                                const className = button.className || '';
+
+                                if (title.includes('YouTube') ||
+                                    ariaLabel.includes('YouTube') ||
+                                    className.includes('youtube')) {
+                                    button.style.display = 'none';
+                                    button.remove();
+                                }
+                            });
+
+                            console.log('YouTube button removal attempted');
+                        };
+
+                        // Immediate removal
+                        removeYouTubeButton();
+
+                        // Multiple timed removal attempts
+                        const removalAttempts = [100, 500, 1000, 2000, 5000];
+                        removalAttempts.forEach(delay => {
+                            setTimeout(removeYouTubeButton, delay);
+                        });
+
+                        // Mutation Observer for dynamic content
+                        const observer = new MutationObserver(function(mutations) {
+                            mutations.forEach(function(mutation) {
+                                if (mutation.type === 'childList') {
+                                    removeYouTubeButton();
+                                }
+                            });
+                        });
+
+                        const playerContainer = document.getElementById('youtube-player');
+                        if (playerContainer) {
+                            observer.observe(playerContainer, {
+                                childList: true,
+                                subtree: true,
+                                attributes: true,
+                                attributeFilter: ['class', 'style']
+                            });
+                        }
+
+                        // Stop observer after 15 seconds
+                        setTimeout(function() {
+                            observer.disconnect();
+                            console.log('Mutation observer disconnected');
+                        }, 15000);
+
+                        // Your existing stream initialization code...
+                        updateStreamInfo();
+                        startStreamMonitoring();
+                    }
+                }
+            });
+        }
+        
+        function onPlayerStateChange(event) {
+            // Handle player state changes (buffering, playing, paused, etc.)
+            const statusText = document.getElementById('status-text');
+
+            switch(event.data) {
+                case YT.PlayerState.PLAYING:
+                    if (!streamStartTime) {
+                        streamStartTime = Date.now();
+                        isLiveStream = true;
+                    }
+                    statusText.textContent = "Live Now";
+                    break;
+                case YT.PlayerState.PAUSED:
+                    statusText.textContent = "Paused";
+                    break;
+                case YT.PlayerState.BUFFERING:
+                    statusText.textContent = "Buffering";
+                    break;
+                case YT.PlayerState.ENDED:
+                    statusText.textContent = "Stream Ended";
+                    isLiveStream = false;
+                    break;
+                case YT.PlayerState.UNSTARTED:
+                    statusText.textContent = "Loading...";
+                    break;
+            }
+        }
+
+        // Function to update stream information
+        function updateStreamInfo() {
+            // Simulate getting video info from YouTube API
+            // In a real implementation, you would use YouTube Data API v3
+            fetch(`https://www.googleapis.com/youtube/v3/videos?id=${videoId}&key=YOUR_API_KEY&part=liveStreamingDetails,statistics`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.items && data.items.length > 0) {
+                        const video = data.items[0];
+                        const liveDetails = video.liveStreamingDetails;
+                        const statistics = video.statistics;
+
+                        if (liveDetails) {
+                            // Update live status
+                            const statusText = document.getElementById('status-text');
+                            if (liveDetails.actualStartTime) {
+                                statusText.textContent = "Live Now";
+                                isLiveStream = true;
+                                streamStartTime = new Date(liveDetails.actualStartTime).getTime();
+                            } else {
+                                statusText.textContent = "Offline";
+                                isLiveStream = false;
+                            }
+
+                            // Update viewer count
+                            if (statistics && statistics.viewCount) {
+                                document.getElementById('viewer-count').textContent = statistics.viewCount;
+                            }
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.log('Could not fetch video info, using simulation:', error);
+                    // Fallback to simulation if API fails
+                    startStreamSimulation();
+                });
+        }
+
+        // Function to start stream monitoring
+        function startStreamMonitoring() {
+            // Update stream info every 30 seconds
+            setInterval(updateStreamInfo, 30000);
+
+            // Update uptime every second if stream is live
+            setInterval(() => {
+                if (isLiveStream && streamStartTime) {
+                    updateUptime();
+                }
+            }, 1000);
+
+            // Update viewer count every 10 seconds
+            setInterval(updateViewerCount, 10000);
+        }
+
+        // Function to update uptime display
+        function updateUptime() {
+            const uptimeElement = document.getElementById('uptime');
+            if (!streamStartTime) return;
+
+            const now = Date.now();
+            const elapsed = now - streamStartTime;
+
+            const hours = Math.floor(elapsed / (1000 * 60 * 60));
+            const minutes = Math.floor((elapsed % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((elapsed % (1000 * 60)) / 1000);
+
+            uptimeElement.textContent =
+                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // Function to update viewer count (simulated)
+        function updateViewerCount() {
+            const viewerElement = document.getElementById('viewer-count');
+            const currentCount = parseInt(viewerElement.textContent) || 0;
+
+            // Simulate realistic viewer count changes (-5 to +10)
+            const change = Math.floor(Math.random() * 16) - 5;
+            const newCount = Math.max(0, currentCount + change);
+
+            viewerElement.textContent = newCount;
+        }
+
+        // Fallback simulation function
+        function startStreamSimulation() {
+            // Set initial stream start time (simulated as 30 minutes ago)
+            streamStartTime = Date.now() - (30 * 60 * 1000);
+            isLiveStream = true;
+
+            // Set initial viewer count
+            document.getElementById('viewer-count').textContent = '127';
+
+            console.log('Using simulated stream data');
+        }
+
+        // Comment system functionality
+        const COMMENTS_KEY = 'livestream_comments';
+        const COMMENT_RATE_LIMIT = 5 * 1000; // 5 seconds between comments
+        let lastCommentTime = 0;
+
+        // Load existing comments
+        function loadComments() {
+            const comments = JSON.parse(localStorage.getItem(COMMENTS_KEY) || '[]');
+            const container = document.getElementById('comments-container');
+
+            if (comments.length === 0) {
+                container.innerHTML = '<div class="no-comments">Be the first to comment!</div>';
+                return;
+            }
+
+            container.innerHTML = '';
+            comments.forEach(comment => {
+                addCommentToDisplay(comment.text, comment.timestamp, comment.id);
+            });
+        }
+
+        // Save comments to localStorage
+        function saveComments(comments) {
+            localStorage.setItem(COMMENTS_KEY, JSON.stringify(comments));
+        }
+
+        // Add comment to display with enhanced animation
+        function addCommentToDisplay(text, timestamp, id) {
+            const container = document.getElementById('comments-container');
+            const noComments = container.querySelector('.no-comments');
+
+            if (noComments) {
+                noComments.remove();
+            }
+
+            const commentDiv = document.createElement('div');
+            commentDiv.className = 'comment';
+            commentDiv.dataset.id = id;
+            commentDiv.style.opacity = '0';
+            commentDiv.style.transform = 'translateY(10px)';
+
+            const date = new Date(timestamp);
+            const timeStr = date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
+            commentDiv.innerHTML = `
+                <div class="comment-content">
+                    <span class="comment-text">${escapeHtml(text)}</span>
+                    <span class="comment-time">${timeStr}</span>
+                </div>
+            `;
+
+            container.appendChild(commentDiv);
+            container.scrollTop = container.scrollHeight;
+
+            // Animate in the new comment
+            setTimeout(() => {
+                commentDiv.style.transition = 'all 0.3s ease-out';
+                commentDiv.style.opacity = '1';
+                commentDiv.style.transform = 'translateY(0)';
+            }, 50);
+        }
+
+        // Add new comment
+        function addComment() {
+            const input = document.getElementById('comment-input');
+            const text = input.value.trim();
+
+            // Validate input
+            if (!text) {
+                alert('Please enter a comment');
+                return;
+            }
+
+            if (text.length > 200) {
+                alert('Comment is too long (max 200 characters)');
+                return;
+            }
+
+            // Rate limiting check
+            const now = Date.now();
+            if (now - lastCommentTime < COMMENT_RATE_LIMIT) {
+                const remaining = Math.ceil((COMMENT_RATE_LIMIT - (now - lastCommentTime)) / 1000);
+                alert(`Please wait ${remaining} seconds before posting another comment`);
+                return;
+            }
+
+            // Basic bot detection (simple heuristic)
+            if (text.length < 3 || text.split(' ').length < 2) {
+                alert('Comments must be at least 3 characters and contain at least 2 words');
+                return;
+            }
+
+            // Create comment object
+            const comment = {
+                id: Date.now() + Math.random(),
+                text: text,
+                timestamp: Date.now(),
+                userId: generateUserId()
+            };
+
+            // Load existing comments
+            const comments = JSON.parse(localStorage.getItem(COMMENTS_KEY) || '[]');
+
+            // Add new comment
+            comments.push(comment);
+
+            // Keep only last 50 comments to prevent storage bloat
+            if (comments.length > 50) {
+                comments.splice(0, comments.length - 50);
+            }
+
+            // Save and display
+            saveComments(comments);
+            addCommentToDisplay(text, comment.timestamp, comment.id);
+
+            // Clear input and update timestamp
+            input.value = '';
+            lastCommentTime = now;
+
+            // Focus back to input
+            input.focus();
+        }
+
+        // Generate simple user ID for tracking
+        function generateUserId() {
+            let userId = sessionStorage.getItem('user_id');
+            if (!userId) {
+                userId = 'user_' + Math.random().toString(36).substr(2, 9);
+                sessionStorage.setItem('user_id', userId);
+            }
+            return userId;
+        }
+
+        // Escape HTML to prevent XSS
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Initialize comment system
+        document.addEventListener('DOMContentLoaded', function() {
+            const commentInput = document.getElementById('comment-input');
+            const commentSubmit = document.getElementById('comment-submit');
+
+            // Load existing comments
+            loadComments();
+
+            // Handle comment submission
+            commentSubmit.addEventListener('click', addComment);
+
+            // Handle Enter key in input
+            commentInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    addComment();
+                }
+            });
+
+            // Auto-focus on input when clicking in container
+            document.querySelector('.comment-input-container').addEventListener('click', function() {
+                commentInput.focus();
+            });
+        });
+    </script>
+</body>
+</html>
