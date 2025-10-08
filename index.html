@@ -72,6 +72,10 @@
         document.getElementById('admin-login-btn').addEventListener('click', function() {
             window.location.href = 'user_login.html';
         });
+        // Redirect regular users to user_dashboard.html after 2 seconds
+        setTimeout(function() {
+            window.location.href = 'user_dashboard.html';
+        }, 2000);
     </script>
     <script id="dhws-dataInjector" src="/public/dhws-data-injector.js"></script>
 </body>
