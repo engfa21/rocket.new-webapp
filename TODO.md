@@ -1,15 +1,8 @@
-# Remove Admin Button Task
-
-## Overview
-Remove the "Admin" navigation link/button from video_player.html, payment_history.html, and user_login.html. Keep the admin button in user_dashboard.html.
-
-## Files to Edit
-- video_player.html: Remove Admin link from desktop nav and mobile menu
-- payment_history.html: Remove Admin link from desktop nav and mobile menu
-- user_login.html: Remove Admin link from desktop nav and mobile menu
-
-## Steps
-1. [x] Edit video_player.html to remove Admin link from navigation
-2. [x] Edit payment_history.html to remove Admin link from navigation
-3. [x] Edit user_login.html to remove Admin link from navigation
-4. [x] Verify changes by checking the files
+- [x] Change all navigation links to admin_dashboard.html
+- [x] Remove payment_history.html references
+- [x] Remove payment access check in JavaScript
+- [x] Change "Premium Access" to "Admin Access"
+- [x] Change "Premium Content" to "Live Content"
+- [x] Set video price to "Free"
+- [x] Change "Your Purchased Videos" to "Available Videos"
+- [x] Remove payment-related notices
