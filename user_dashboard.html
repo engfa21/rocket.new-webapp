@@ -22,15 +22,14 @@
                                 <path d="M8 5v14l11-7z"/>
                             </svg>
                         </div>
-                        <span class="text-xl font-bold text-text-primary">StreamPay Pro</span>
+                        <span class="text-xl font-bold text-text-primary">KG9 live</span>
                     </a>
                 </div>
                 
                 <!-- Navigation Links -->
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="user_dashboard.html" class="text-primary font-medium">Dashboard</a>
-                    <a href="video_player.html" class="text-text-secondary hover:text-primary transition-colors duration-200">Videos</a>
-                    <a href="payment_history.html" class="text-text-secondary hover:text-primary transition-colors duration-200">Payment History</a>
+                    <a href="video_player.html" class="text-primary font-medium">Livestream</a>
+                    <a href="user_dashboard.html" class="text-text-secondary hover:text-primary transition-colors duration-200">Dashboard</a>
                     <button id="admin-login-btn" class="text-text-secondary hover:text-primary transition-colors duration-200" style="background: #764ba2; color: white; border: none; border-radius: 5px; padding: 6px 16px; cursor: pointer;">Admin</button>
                 </div>
                 
@@ -51,8 +50,7 @@
                         
                         <!-- Dropdown Menu -->
                         <div id="user-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-surface rounded-lg shadow-lg border border-border py-2">
-                            <a href="javascript:void(0)" class="block px-4 py-2 text-sm text-text-secondary hover:bg-secondary-50 hover:text-primary transition-colors duration-200">Profile Settings</a>
-                            <a href="payment_history.html" class="block px-4 py-2 text-sm text-text-secondary hover:bg-secondary-50 hover:text-primary transition-colors duration-200">Payment History</a>
+                            <!--<a href="javascript:void(0)" class="block px-4 py-2 text-sm text-text-secondary hover:bg-secondary-50 hover:text-primary transition-colors duration-200">Profile Settings</a>-->
                             <a href="javascript:void(0)" class="block px-4 py-2 text-sm text-text-secondary hover:bg-secondary-50 hover:text-primary transition-colors duration-200">Support</a>
                             <div class="border-t border-border my-2"></div>
                             <button id="logout-btn" class="block w-full text-left px-4 py-2 text-sm text-error-600 hover:bg-error-50 transition-colors duration-200">Sign Out</button>
@@ -74,9 +72,8 @@
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden bg-surface border-t border-border">
             <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="video_player.html" class="block px-3 py-2 text-text-secondary hover:text-primary hover:bg-secondary-50 rounded-md transition-colors duration-200">Livestream</a>
                 <a href="user_dashboard.html" class="block px-3 py-2 text-primary font-medium bg-primary-50 rounded-md">Dashboard</a>
-                <a href="video_player.html" class="block px-3 py-2 text-text-secondary hover:text-primary hover:bg-secondary-50 rounded-md transition-colors duration-200">Videos</a>
-                <a href="payment_history.html" class="block px-3 py-2 text-text-secondary hover:text-primary hover:bg-secondary-50 rounded-md transition-colors duration-200">Payment History</a>
                 <a href="admin_dashboard.html" class="block px-3 py-2 text-text-secondary hover:text-primary hover:bg-secondary-50 rounded-md transition-colors duration-200">Admin</a>
                 <div class="border-t border-border my-2"></div>
                 <button id="mobile-logout-btn" class="block w-full text-left px-3 py-2 text-error-600 hover:bg-error-50 rounded-md transition-colors duration-200">Sign Out</button>
@@ -94,7 +91,7 @@
                     <p class="text-text-secondary">Manage your purchased videos and account settings</p>
                 </div>
                 <div class="mt-4 sm:mt-0">
-                    <button class="btn-primary flex items-center space-x-2">
+                    <button class="btn-primary flex items-center space-x-2" disabled style="opacity: 0.5; cursor: not-allowed;">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
                         </svg>
@@ -104,56 +101,7 @@
             </div>
         </div>
 
-        <!-- Stats Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <!-- Total Purchases -->
-            <div class="card">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-text-secondary text-sm font-medium">Total Purchases</p>
-                        <p class="text-2xl font-bold text-text-primary mt-1">12</p>
-                        <p class="text-success-600 text-sm mt-1">+3 this month</p>
-                    </div>
-                    <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
-                        <svg class="w-6 h-6 text-primary" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M7 4V2C7 1.45 7.45 1 8 1H16C16.55 1 17 1.45 17 2V4H20C20.55 4 21 4.45 21 5S20.55 6 20 6H19V19C19 20.1 18.1 21 17 21H7C5.9 21 5 20.1 5 19V6H4C3.45 6 3 5.55 3 5S3.45 4 4 4H7ZM9 3V4H15V3H9ZM7 6V19H17V6H7Z"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Total Spent -->
-            <div class="card">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-text-secondary text-sm font-medium">Total Spent</p>
-                        <p class="text-2xl font-bold text-text-primary mt-1">$149.88</p>
-                        <p class="text-text-secondary text-sm mt-1">Average $12.49</p>
-                    </div>
-                    <div class="w-12 h-12 bg-success-100 rounded-lg flex items-center justify-center">
-                        <svg class="w-6 h-6 text-success-600" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Watch Time -->
-            <div class="card">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-text-secondary text-sm font-medium">Watch Time</p>
-                        <p class="text-2xl font-bold text-text-primary mt-1">24.5h</p>
-                        <p class="text-accent text-sm mt-1">+2.3h this week</p>
-                    </div>
-                    <div class="w-12 h-12 bg-accent-100 rounded-lg flex items-center justify-center">
-                        <svg class="w-6 h-6 text-accent" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <!-- Main Content Area -->
@@ -238,7 +186,7 @@
                                     </div>
                                     <span class="text-xs text-text-secondary">65%</span>
                                 </div>
-                                <a href="video_player.html" class="btn-primary w-full text-center">Watch Now</a>
+                                <!-- Removed Watch Now button as per request -->
                             </div>
                         </div>
 
@@ -271,7 +219,7 @@
                                     </div>
                                     <span class="text-xs text-success-600">Complete</span>
                                 </div>
-                                <a href="video_player.html" class="btn-primary w-full text-center">Watch Again</a>
+                                <!-- Removed Watch Again button as per request -->
                             </div>
                         </div>
 
@@ -304,7 +252,7 @@
                                     </div>
                                     <span class="text-xs text-text-secondary">30%</span>
                                 </div>
-                                <a href="video_player.html" class="btn-primary w-full text-center">Continue Watching</a>
+                                <!-- Removed Continue Watching button as per request -->
                             </div>
                         </div>
 
@@ -337,7 +285,7 @@
                                     </div>
                                     <span class="text-xs text-text-secondary">85%</span>
                                 </div>
-                                <a href="video_player.html" class="btn-primary w-full text-center">Continue Watching</a>
+                                <!-- Removed Continue Watching button as per request -->
                             </div>
                         </div>
                     </div>
@@ -351,85 +299,7 @@
 
             <!-- Sidebar -->
             <div class="space-y-6">
-                <!-- Quick Actions -->
-                <div class="card">
-                    <h3 class="font-semibold text-text-primary mb-4">Quick Actions</h3>
-                    <div class="space-y-3">
-                        <a href="video_player.html" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-secondary-50 transition-colors duration-200 group">
-                            <div class="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center group-hover:bg-primary-200 transition-colors duration-200">
-                                <svg class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M8 5v14l11-7z"/>
-                                </svg>
-                            </div>
-                            <div>
-                                <p class="font-medium text-text-primary">Browse Videos</p>
-                                <p class="text-sm text-text-secondary">Discover new content</p>
-                            </div>
-                        </a>
-                        
-                        <a href="payment_history.html" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-secondary-50 transition-colors duration-200 group">
-                            <div class="w-10 h-10 bg-success-100 rounded-lg flex items-center justify-center group-hover:bg-success-200 transition-colors duration-200">
-                                <svg class="w-5 h-5 text-success-600" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                                </svg>
-                            </div>
-                            <div>
-                                <p class="font-medium text-text-primary">Payment History</p>
-                                <p class="text-sm text-text-secondary">View transactions</p>
-                            </div>
-                        </a>
-                        
-                        <a href="javascript:void(0)" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-secondary-50 transition-colors duration-200 group">
-                            <div class="w-10 h-10 bg-accent-100 rounded-lg flex items-center justify-center group-hover:bg-accent-200 transition-colors duration-200">
-                                <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1H5C3.89 1 3 1.89 3 3V21C3 22.11 3.89 23 5 23H11V21H5V3H13V9H21Z"/>
-                                </svg>
-                            </div>
-                            <div>
-                                <p class="font-medium text-text-primary">Account Settings</p>
-                                <p class="text-sm text-text-secondary">Manage profile</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
 
-                <!-- Recent Activity -->
-                <div class="card">
-                    <h3 class="font-semibold text-text-primary mb-4">Recent Activity</h3>
-                    <div class="space-y-4">
-                        <div class="flex items-start space-x-3">
-                            <div class="w-2 h-2 bg-success-600 rounded-full mt-2 flex-shrink-0"></div>
-                            <div>
-                                <p class="text-sm text-text-primary">Purchased "Advanced React Patterns"</p>
-                                <p class="text-xs text-text-secondary">2 hours ago</p>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-start space-x-3">
-                            <div class="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                            <div>
-                                <p class="text-sm text-text-primary">Completed "Business Strategy Masterclass"</p>
-                                <p class="text-xs text-text-secondary">1 day ago</p>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-start space-x-3">
-                            <div class="w-2 h-2 bg-accent rounded-full mt-2 flex-shrink-0"></div>
-                            <div>
-                                <p class="text-sm text-text-primary">Started watching "Python for Data Science"</p>
-                                <p class="text-xs text-text-secondary">3 days ago</p>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-start space-x-3">
-                            <div class="w-2 h-2 bg-secondary-400 rounded-full mt-2 flex-shrink-0"></div>
-                            <div>
-                                <p class="text-sm text-text-primary">Updated payment method</p>
-                                <p class="text-xs text-text-secondary">1 week ago</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                 <!-- Support -->
                 <div class="card bg-gradient-subtle">
@@ -459,7 +329,7 @@
                                 <path d="M8 5v14l11-7z"/>
                             </svg>
                         </div>
-                        <span class="text-xl font-bold text-text-primary">StreamPay Pro</span>
+                        <span class="text-xl font-bold text-text-primary">KG9 Live</span>
                     </div>
                     <p class="text-text-secondary mb-4">Premium video streaming platform with secure pay-per-view access to exclusive content.</p>
                     <div class="flex space-x-4">
@@ -485,9 +355,8 @@
                     <h3 class="font-semibold text-text-primary mb-4">Platform</h3>
                     <ul class="space-y-2">
                         <li><a href="user_dashboard.html" class="text-text-secondary hover:text-primary transition-colors duration-200">Dashboard</a></li>
-                        <li><a href="video_player.html" class="text-text-secondary hover:text-primary transition-colors duration-200">Browse Videos</a></li>
-                        <li><a href="payment_history.html" class="text-text-secondary hover:text-primary transition-colors duration-200">Payment History</a></li>
-                        <li><a href="javascript:void(0)" class="text-text-secondary hover:text-primary transition-colors duration-200">Account Settings</a></li>
+                        <li><a href="video_player.html" class="text-text-secondary hover:text-primary transition-colors duration-200" aria-disabled="true" tabindex="-1" style="pointer-events:none; opacity:0.5;">Browse Videos</a></li>
+                        <li><!-- Account Settings link removed as per request --></li>
                     </ul>
                 </div>
                 
@@ -503,7 +372,7 @@
             </div>
             
             <div class="border-t border-border mt-8 pt-6 text-center text-sm text-text-secondary">
-                <p>&copy; 2025 StreamPay Pro. All Rights Reserved.</p>
+                <p>&copy; 2025 KG9 Live. All Rights Reserved.</p>
             </div>
         </div>
     </footer>

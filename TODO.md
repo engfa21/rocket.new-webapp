@@ -1,8 +1,5 @@
-- [x] Change all navigation links to admin_dashboard.html
-- [x] Remove payment_history.html references
-- [x] Remove payment access check in JavaScript
-- [x] Change "Premium Access" to "Admin Access"
-- [x] Change "Premium Content" to "Live Content"
-- [x] Set video price to "Free"
-- [x] Change "Your Purchased Videos" to "Available Videos"
-- [x] Remove payment-related notices
+# TODO: Add Advertisement Banner to Video Player
+
+- [x] Add ad-specific styles to the existing <style> tag in the <head> of video_player.html
+- [x] Insert the ad HTML (<div class="container"> with banner-ad) after the navigation bar and before the live update notification in video_player.html
+- [x] Add the ad JavaScript before the existing YouTube player script in video_player.html

@@ -5,10 +5,587 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Video Player - StreamPay Pro</title>
     <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <script src="https://www.youtube.com/iframe_api"></script>
 <script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fstreampay6097back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.8"></script>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+        background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+        color: #fff;
+        min-height: 100vh;
+        padding: 40px 20px;
+        line-height: 1.6;
+    }
+
+    .container {
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .ad-section {
+        background: rgba(0, 0, 0, 0.4);
+        padding: 30px;
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        margin-bottom: 30px;
+    }
+
+    .ad-section h2 {
+        color: #fff;
+        margin-bottom: 25px;
+        font-size: 1.8rem;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .ad-section h2 i {
+        color: #ff8a00;
+    }
+
+    .ad-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+        margin-bottom: 20px;
+    }
+
+    .ad-card {
+        background: rgba(255, 255, 255, 0.05);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        overflow: hidden;
+        transition: all 0.4s ease;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .ad-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(90deg, #ff8a00, #ff6b00);
+        transform: scaleX(0);
+        transition: transform 0.4s ease;
+    }
+
+    .ad-card:hover::before {
+        transform: scaleX(1);
+    }
+
+    .ad-card:hover {
+        transform: translateY(-8px);
+        border-color: rgba(255, 138, 0, 0.4);
+        box-shadow: 0 12px 40px rgba(255, 138, 0, 0.3);
+        background: rgba(255, 255, 255, 0.08);
+    }
+
+    .ad-image-container {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+        background: linear-gradient(135deg, #1a1a2e, #16213e);
+        position: relative;
+    }
+
+    .ad-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+    }
+
+    .ad-card:hover .ad-image {
+        transform: scale(1.1);
+    }
+
+    .ad-badge {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        background: linear-gradient(135deg, #ff8a00, #ff6b00);
+        color: white;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        box-shadow: 0 4px 10px rgba(255, 138, 0, 0.4);
+    }
+
+    .ad-content {
+        padding: 20px;
+    }
+
+    .ad-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: #fff;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .ad-description {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 15px;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        line-height: 1.5;
+    }
+
+    .ad-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 15px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .ad-price {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: #ff8a00;
+        text-shadow: 0 2px 4px rgba(255, 138, 0, 0.3);
+    }
+
+    .ad-button {
+        background: linear-gradient(135deg, #ff8a00, #ff6b00);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 25px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.3s ease;
+    }
+
+    .ad-button:hover {
+        background: linear-gradient(135deg, #ff6b00, #ff4500);
+        transform: scale(1.05);
+        box-shadow: 0 5px 15px rgba(255, 138, 0, 0.4);
+    }
+
+    /* Wide Banner Advertisement */
+    .banner-ad {
+        background: rgba(0, 0, 0, 0.4);
+        border-radius: 15px;
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.4s ease;
+        cursor: pointer;
+        position: relative;
+        margin-bottom: 30px;
+    }
+
+    .banner-ad:hover {
+        border-color: rgba(255, 138, 0, 0.4);
+        box-shadow: 0 12px 40px rgba(255, 138, 0, 0.3);
+        transform: scale(1.02);
+    }
+
+    .banner-image-container {
+        width: 100%;
+        aspect-ratio: 3 / 1;
+        overflow: hidden;
+        background: linear-gradient(135deg, #1a1a2e, #16213e);
+        position: relative;
+    }
+
+    .banner-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+    }
+
+    .banner-ad:hover .banner-image {
+        transform: scale(1.05);
+    }
+
+    .banner-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+        padding: 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+
+    .banner-content {
+        flex: 1;
+    }
+
+    .banner-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 10px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    }
+
+    .banner-description {
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.9);
+        max-width: 600px;
+    }
+
+    .banner-cta {
+        background: linear-gradient(135deg, #ff8a00, #ff6b00);
+        color: white;
+        border: none;
+        padding: 15px 35px;
+        border-radius: 30px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+    }
+
+    .banner-cta:hover {
+        background: linear-gradient(135deg, #ff6b00, #ff4500);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(255, 138, 0, 0.5);
+    }
+
+    /* Sponsored Tag */
+    .sponsored-tag {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        background: rgba(0, 0, 0, 0.7);
+        color: rgba(255, 255, 255, 0.8);
+        padding: 6px 12px;
+        border-radius: 5px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        backdrop-filter: blur(10px);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .ad-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .banner-image-container {
+            aspect-ratio: 2 / 1;
+        }
+
+        .banner-overlay {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 20px;
+        }
+
+        .banner-title {
+            font-size: 1.5rem;
+        }
+
+        .banner-description {
+            font-size: 0.95rem;
+        }
+
+        .banner-cta {
+            width: 100%;
+            justify-content: center;
+            padding: 12px 25px;
+            font-size: 1rem;
+        }
+    }
+
+    /* Loading placeholder */
+    .ad-placeholder {
+        background: linear-gradient(90deg, rgba(255, 255, 255, 0.05) 25%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.05) 75%);
+        background-size: 200% 100%;
+        animation: loading 1.5s infinite;
+    }
+
+    @keyframes loading {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+    }
+
+    /* Comment Section Styling */
+    .comment-section {
+        background: rgba(0, 0, 0, 0.4);
+        padding: 25px;
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    }
+
+    .comment-section h3 {
+        color: #fff;
+        margin-bottom: 20px;
+        font-size: 1.4rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .comment-section h3 i {
+        color: #ff8a00;
+    }
+
+    .comment-input-container {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 20px;
+        align-items: center;
+    }
+
+    .comment-input {
+        flex: 1;
+        padding: 12px 16px;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 25px;
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+        font-size: 0.95rem;
+        outline: none;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(5px);
+    }
+
+    .comment-input:focus {
+        border-color: #ff8a00;
+        background: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 0 0 3px rgba(255, 138, 0, 0.2);
+    }
+
+    .comment-input::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    .comment-submit-btn {
+        background: linear-gradient(135deg, #ff8a00, #ff6b00);
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 25px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.3s ease;
+        min-width: 80px;
+        justify-content: center;
+    }
+
+    .comment-submit-btn:hover {
+        background: linear-gradient(135deg, #ff6b00, #ff4500);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(255, 138, 0, 0.4);
+    }
+
+    .comment-submit-btn:active {
+        transform: translateY(0);
+    }
+
+    .pay-button {
+        background: linear-gradient(135deg, #ff8a00, #ff6b00);
+        color: white;
+        text-decoration: none;
+        padding: 12px 20px;
+        border-radius: 25px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.3s ease;
+        min-width: 120px;
+        justify-content: center;
+    }
+
+    .pay-button:hover {
+        background: linear-gradient(135deg, #ff6b00, #ff4500);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(255, 138, 0, 0.4);
+    }
+
+    .pay-button:active {
+        transform: translateY(0);
+    }
+
+    .comments-container {
+        max-height: 400px;
+        overflow-y: auto;
+        padding-right: 10px;
+        scrollbar-width: thin;
+        scrollbar-color: #ff8a00 rgba(255, 255, 255, 0.1);
+    }
+
+    .comments-container::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .comments-container::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+    }
+
+    .comments-container::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, #ff8a00, #ff6b00);
+        border-radius: 10px;
+    }
+
+    .comments-container::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(180deg, #ff6b00, #ff4500);
+    }
+
+    .no-comments {
+        text-align: center;
+        color: rgba(255, 255, 255, 0.6);
+        font-style: italic;
+        padding: 40px 20px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 10px;
+        border: 2px dashed rgba(255, 255, 255, 0.2);
+    }
+
+    .comment {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 15px;
+        padding: 15px 20px;
+        margin-bottom: 12px;
+        backdrop-filter: blur(5px);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .comment::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: linear-gradient(180deg, #ff8a00, #ff6b00);
+        border-radius: 2px 0 0 2px;
+    }
+
+    .comment:hover {
+        background: rgba(255, 255, 255, 0.12);
+        border-color: rgba(255, 138, 0, 0.3);
+        transform: translateX(5px);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .comment-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .comment-text {
+        color: #fff;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        flex: 1;
+        word-wrap: break-word;
+    }
+
+    .comment-time {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.8rem;
+        font-weight: 500;
+        white-space: nowrap;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 4px 8px;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Comment fade-in animation */
+    @keyframes commentFadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .comment {
+        animation: commentFadeIn 0.3s ease-out;
+    }
+
+    /* Mobile responsiveness for comments */
+    @media (max-width: 768px) {
+        .comment-input-container {
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .comment-input {
+            width: 100%;
+        }
+
+        .comment-submit-btn {
+            width: 100%;
+            padding: 14px 20px;
+        }
+
+        .comments-container {
+            max-height: 300px;
+        }
+
+        .comment-content {
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .comment-time {
+            align-self: flex-end;
+        }
+    }
+</style>
 </head>
 <body class="min-h-screen bg-gradient-to-br from-primary-50 via-background to-accent-50">
     <!-- Navigation Header -->
@@ -23,15 +600,14 @@
                                 <path d="M8 5v14l11-7z"/>
                             </svg>
                         </div>
-                        <span class="text-xl font-bold text-text-primary">StreamPay Pro</span>
+                        <span class="text-xl font-bold text-text-primary">KG9 Live</span>
                     </a>
                 </div>
                 
                 <!-- Navigation Links -->
                 <div class="hidden md:flex items-center space-x-8">
+                    <a href="video_player.html" class="text-primary font-medium">Livestream</a>
                     <a href="user_dashboard.html" class="text-text-secondary hover:text-primary transition-colors duration-200">Dashboard</a>
-                    <a href="video_player.html" class="text-primary font-medium">Videos</a>
-                    <a href="payment_history.html" class="text-text-secondary hover:text-primary transition-colors duration-200">Payment History</a>
                 </div>
                 
                 <!-- User Menu -->
@@ -55,7 +631,6 @@
                         <!-- Dropdown Menu -->
                         <div id="user-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-surface rounded-lg shadow-lg border border-border py-2 z-50">
                             <a href="user_dashboard.html" class="block px-4 py-2 text-sm text-text-secondary hover:bg-secondary-50 hover:text-primary transition-colors duration-200">Dashboard</a>
-                            <a href="payment_history.html" class="block px-4 py-2 text-sm text-text-secondary hover:bg-secondary-50 hover:text-primary transition-colors duration-200">Payment History</a>
                             <div class="border-t border-border my-2"></div>
                             <!-- Sign Out removed -->
                         </div>
@@ -76,12 +651,16 @@
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden bg-surface border-t border-border">
             <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="video_player.html" class="block px-3 py-2 text-primary font-medium bg-primary-50 rounded-md">Livestream</a>
                 <a href="user_dashboard.html" class="block px-3 py-2 text-text-secondary hover:text-primary hover:bg-secondary-50 rounded-md transition-colors duration-200">Dashboard</a>
-                <a href="video_player.html" class="block px-3 py-2 text-primary font-medium bg-primary-50 rounded-md">Videos</a>
-                <a href="payment_history.html" class="block px-3 py-2 text-text-secondary hover:text-primary hover:bg-secondary-50 rounded-md transition-colors duration-200">Payment History</a>
             </div>
         </div>
     </nav>
+
+    <!-- WhatsApp Image -->
+    <div style="text-align: center; margin: 20px 0;">
+        <img src="WhatsApp Image 2025-10-06 at 4.57.07 PM (1).jpeg" alt="WhatsApp Image" style="max-width: 500px; height: auto; display: block; margin: 0 auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+    </div>
 
     <!-- Live Update Notification -->
     <div id="video-update-notification" class="hidden fixed top-20 right-4 z-50 bg-primary text-white p-4 rounded-lg shadow-lg max-w-sm transform transition-all duration-300">
@@ -99,6 +678,26 @@
 
     <!-- Main Content -->
     <main class="flex-1">
+        <!-- Advertisement Section -->
+        <section class="container">
+            <div class="ad-section">
+            </div>
+
+            <!-- Wide Banner Advertisement -->
+            <div class="banner-ad" style="display:none;">
+                <div class="sponsored-tag">Sponsored</div>
+                <div class="banner-image-container">
+                    <img src="" alt="Banner Advertisement" class="banner-image">
+                </div>
+                <div class="banner-overlay">
+                    <div class="banner-content">
+                        <div class="banner-title"></div>
+                        <div class="banner-description"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Video Player Section -->
         <section class="bg-black">
             <div class="max-w-7xl mx-auto">
@@ -122,8 +721,18 @@
                                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                             </svg>
                             <h3 class="text-xl font-bold mb-2">Access Restricted</h3>
-                            <p class="text-gray-300 mb-4">This premium content requires payment to access.</p>
-                            <a href="https://www.paypal.com/ncp/payment/VSFWCQARFRZYN" class="btn-primary">Purchase Access</a>
+                            <p class="text-gray-300 mb-4">This premium content requires a one-time $20 payment to access.</p>
+                            <div class="space-y-3">
+                                <a href="https://www.paypal.com/ncp/payment/VSFWCQARFRZYN" target="_blank" class="pay-button">
+                                    <i class="fas fa-credit-card"></i> Pay $20 with PayPal
+                                </a>
+                                <div class="text-sm text-gray-400">
+                                    <p class="mb-2">After payment, return here and click "I've Paid" below.</p>
+                                    <button onclick="checkPaymentStatus()" class="pay-button secondary" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3);">
+                                        <i class="fas fa-check"></i> I've Paid - Check Access
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     
@@ -218,33 +827,28 @@
                                 <p>Loading description...</p>
                             </div>
                         </div>
+
+                        <!-- Comment Section -->
+                        <div class="container">
+                            <div class="comment-section">
+                                <h3><i class="fas fa-comments"></i> Comments</h3>
+                                <div class="comment-input-container">
+                                    <input type="text" id="comment-input" class="comment-input" placeholder="Share your thoughts...">
+                                    <button id="submit-comment" class="comment-submit-btn">
+                                        <i class="fas fa-paper-plane"></i> Post
+                                    </button>
+                                </div>
+                                <div id="comments-container" class="comments-container">
+                                    <div class="no-comments">
+                                        <p>Be the first to comment!</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     
                     <!-- Sidebar -->
                     <div class="space-y-6">
-                        <!-- Live Stats -->
-                        <div class="card">
-                            <h3 class="font-semibold text-text-primary mb-4">Live Statistics</h3>
-                            <div class="space-y-4">
-                                <div class="flex justify-between items-center">
-                                    <span class="text-text-secondary">Current Viewers</span>
-                                    <span id="live-viewers" class="font-semibold text-primary">Loading...</span>
-                                </div>
-                                <div class="flex justify-between items-center">
-                                    <span class="text-text-secondary">Peak Viewers</span>
-                                    <span class="font-semibold text-text-primary">2,891</span>
-                                </div>
-                                <div class="flex justify-between items-center">
-                                    <span class="text-text-secondary">Stream Quality</span>
-                                    <span class="font-semibold text-success">1080p HD</span>
-                                </div>
-                                <div class="flex justify-between items-center">
-                                    <span class="text-text-secondary">Your Watch Time</span>
-                                    <span id="watch-time" class="font-semibold text-accent">0:00</span>
-                                </div>
-                            </div>
-                        </div>
-
                         <!-- Current Video Info -->
                         <div class="card">
                             <h3 class="font-semibold text-text-primary mb-4">Current Video Info</h3>
@@ -264,58 +868,7 @@
                             </div>
                         </div>
                         
-                        <!-- Related Videos -->
-                        <div class="card">
-                            <h3 class="font-semibold text-text-primary mb-4">Your Purchased Videos</h3>
-                            <div class="space-y-3">
-                                <div class="flex items-center space-x-3 p-3 bg-secondary-50 rounded-lg hover:bg-secondary-100 transition-colors duration-200 cursor-pointer">
-                                    <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Tech Summit 2024" class="w-16 h-12 object-cover rounded" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
-                                    <div class="flex-1 min-w-0">
-                                        <h4 class="text-sm font-medium text-text-primary truncate">Tech Summit 2024 Highlights</h4>
-                                        <p class="text-xs text-text-secondary">2 hours • Purchased</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="flex items-center space-x-3 p-3 bg-secondary-50 rounded-lg hover:bg-secondary-100 transition-colors duration-200 cursor-pointer">
-                                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="AI Workshop Series" class="w-16 h-12 object-cover rounded" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
-                                    <div class="flex-1 min-w-0">
-                                        <h4 class="text-sm font-medium text-text-primary truncate">AI Workshop Series</h4>
-                                        <p class="text-xs text-text-secondary">4 hours • Purchased</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="flex items-center space-x-3 p-3 bg-secondary-50 rounded-lg hover:bg-secondary-100 transition-colors duration-200 cursor-pointer">
-                                    <img src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Startup Pitch Competition" class="w-16 h-12 object-cover rounded" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
-                                    <div class="flex-1 min-w-0">
-                                        <h4 class="text-sm font-medium text-text-primary truncate">Startup Pitch Competition</h4>
-                                        <p class="text-xs text-text-secondary">3 hours • Purchased</p>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="mt-4 pt-4 border-t border-border">
-                                <a href="user_dashboard.html" class="btn-secondary w-full text-center">View All Videos</a>
-                            </div>
-                        </div>
-                        
-                        <!-- Social Sharing -->
-                        <div class="card">
-                            <h3 class="font-semibold text-text-primary mb-4">Share This Stream</h3>
-                            <div class="flex space-x-3">
-                                <button class="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors duration-200">
-                                    Facebook
-                                </button>
-                                <button class="flex-1 bg-blue-400 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-500 transition-colors duration-200">
-                                    Twitter
-                                </button>
-                                <button class="flex-1 bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-800 transition-colors duration-200">
-                                    LinkedIn
-                                </button>
-                            </div>
-                            <p class="text-xs text-text-secondary mt-2 text-center">
-                                Share the experience (access restrictions apply)
-                            </p>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -345,16 +898,8 @@
         
         // Initialize YouTube Player
         function onYouTubeIframeAPIReady() {
-            // Load current video from admin selection
-            setTimeout(() => {
-                loadCurrentVideo();
-            }, 1000);
-        }
-        
-        function loadCurrentVideo() {
-            // Check user authentication first
+            // Check user access immediately to avoid delay for access denied
             const user = localStorage.getItem('streamPayUser');
-
             if (!user) {
                 showAccessDenied();
                 return;
@@ -372,18 +917,23 @@
             }
 
             // Check payment access
-            const adminView = urlParams.get('adminView') === 'true';
+            const hasPaidAccess = userData.paidAccess === true;
 
-            const hasPaidAccess = userData.email === 'user@streampay.com' || userData.email === 'demo@streampay.com' || userData.paidAccess === true || adminView;
+            if (!hasPaidAccess) {
+                showAccessDenied();
+                return;
+            }
 
-    if (!hasPaidAccess) {
-        showAccessDenied();
-        return;
-    }
-            
+            // If user has access, load video with delay for YouTube API
+            setTimeout(() => {
+                loadCurrentVideo();
+            }, 1000);
+        }
+        
+        function loadCurrentVideo() {
             // Get current video from admin dashboard
             const adminCurrentVideo = localStorage.getItem('streamPayCurrentVideo');
-            
+
             if (adminCurrentVideo) {
                 currentVideoData = JSON.parse(adminCurrentVideo);
                 initializePlayer(currentVideoData.youtubeId);
@@ -456,6 +1006,32 @@
         function showAccessDenied() {
             document.getElementById('loading-overlay').classList.add('hidden');
             document.getElementById('access-denied-overlay').classList.remove('hidden');
+        }
+
+        function checkPaymentStatus() {
+            // Simulate payment verification - in a real app, this would check with PayPal API
+            const user = localStorage.getItem('streamPayUser');
+            if (!user) {
+                alert('Please log in first');
+                return;
+            }
+
+            const userData = JSON.parse(user);
+
+            // For demo purposes, we'll grant access when user clicks "I've Paid"
+            // In production, you would verify the payment with PayPal's API
+            userData.paidAccess = true;
+            userData.paymentDate = new Date().toISOString();
+            localStorage.setItem('streamPayUser', JSON.stringify(userData));
+
+            // Hide access denied overlay and show loading
+            document.getElementById('access-denied-overlay').classList.add('hidden');
+            document.getElementById('loading-overlay').classList.remove('hidden');
+
+            // Reload the page to initialize the player
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
         }
         
         function initializePlayer(videoId) {
@@ -621,7 +1197,7 @@
             }
             
             const userData = JSON.parse(user);
-            document.getElementById('user-status').textContent = `${userData.role.charAt(0).toUpperCase() + userData.role.slice(1)} Access`;
+            document.getElementById('user-status').textContent = 'Premium Access';
         });
         
         // Prevent right-click and keyboard shortcuts for content protection
@@ -663,6 +1239,129 @@
         // Initialize viewer count on load
         document.addEventListener('DOMContentLoaded', function() {
             updateViewerCount();
+            loadBannerAd();
+
+            // Check for banner updates every 5 seconds
+            setInterval(() => {
+                checkBannerUpdates();
+            }, 5000);
+        });
+
+        // Store current banner data for comparison
+        let currentBannerData = null;
+
+        // Load banner advertisement from admin settings
+        function loadBannerAd() {
+            const bannerData = localStorage.getItem('streamPayBanner');
+
+            if (bannerData) {
+                const banner = JSON.parse(bannerData);
+                const bannerContainer = document.querySelector('.banner-ad');
+
+                // Update banner image
+                const bannerImg = bannerContainer.querySelector('.banner-image');
+                if (banner.image) {
+                    bannerImg.src = banner.image;
+                    bannerImg.alt = banner.title || 'Banner Advertisement';
+                }
+
+                // Update banner title
+                const bannerTitle = bannerContainer.querySelector('.banner-title');
+                if (banner.title) {
+                    bannerTitle.textContent = banner.title;
+                }
+
+                // Update banner description if provided
+                const bannerDesc = bannerContainer.querySelector('.banner-description');
+                if (bannerDesc && banner.description) {
+                    bannerDesc.textContent = banner.description;
+                }
+
+                // Show the banner
+                bannerContainer.style.display = 'block';
+
+                // Store current banner data for comparison
+                currentBannerData = banner;
+            } else {
+                // Hide banner if no admin banner is set
+                const bannerContainer = document.querySelector('.banner-ad');
+                bannerContainer.style.display = 'none';
+                currentBannerData = null;
+            }
+        }
+
+        // Check for banner updates from admin
+        function checkBannerUpdates() {
+            const bannerData = localStorage.getItem('streamPayBanner');
+
+            if (bannerData) {
+                const banner = JSON.parse(bannerData);
+
+                // Check if banner has changed
+                if (!currentBannerData ||
+                    currentBannerData.title !== banner.title ||
+                    currentBannerData.image !== banner.image ||
+                    currentBannerData.lastUpdated !== banner.lastUpdated) {
+                    loadBannerAd();
+                }
+            } else if (currentBannerData) {
+                // Banner was removed by admin
+                loadBannerAd();
+            }
+        }
+    </script>
+    <script>
+        // Comment functionality
+        let comments = JSON.parse(localStorage.getItem('videoComments')) || [];
+
+        function renderComments() {
+            const container = document.getElementById('comments-container');
+            if (comments.length === 0) {
+                container.innerHTML = '<div class="no-comments"><p>Be the first to comment!</p></div>';
+                return;
+            }
+
+            container.innerHTML = comments.map(comment => `
+                <div class="comment">
+                    <div class="comment-content">
+                        <div class="comment-text">${comment.text}</div>
+                        <div class="comment-time">${new Date(comment.timestamp).toLocaleString()}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addComment(text) {
+            const comment = {
+                text: text,
+                timestamp: Date.now()
+            };
+
+            comments.unshift(comment);
+            localStorage.setItem('videoComments', JSON.stringify(comments));
+            renderComments();
+        }
+
+        // Event listeners
+        document.getElementById('submit-comment').addEventListener('click', function() {
+            const input = document.getElementById('comment-input');
+            const text = input.value.trim();
+
+            if (text) {
+                addComment(text);
+                input.value = '';
+            }
+        });
+
+        document.getElementById('comment-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('submit-comment').click();
+            }
+        });
+
+        // Initialize comments on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            renderComments();
         });
     </script>
 <script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
