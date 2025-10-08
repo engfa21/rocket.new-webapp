@@ -1,602 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<<<<<<< HEAD
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KG9 LIVE</title>
-    <link rel="stylesheet" href="style.css">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-=======
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>StreamPay Pro - Premium Video Streaming Platform</title>
     <link rel="stylesheet" href="main.css" />
->>>>>>> blackboxai/fix-login-redirect
     <style>
-        @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
-
-        .slider-container {
-          width: 100%;
-          max-width: 1600px;
-          overflow-x: auto;
-          white-space: nowrap;
-          scroll-behavior: smooth;
-          padding: 0;
-          margin: 0 auto 0 auto;
-          cursor: grab;
-          scroll-snap-type: x mandatory;
-          -webkit-overflow-scrolling: touch;
-          text-align: center;
-          scrollbar-width: none;
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-
-        .slider-container::-webkit-scrollbar {
-          display: none;
+        
+        .loading-container {
+            text-align: center;
+            color: white;
         }
-
-        .slider-container:active {
-          cursor: grabbing;
+        
+        .logo {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
-
-        .slide {
-          display: inline-block;
-          width: 350px;
-          height: 400px;
-          margin: 0;
-          overflow: hidden;
-          position: relative;
-          transition: all 0.5s ease;
-          user-select: none;
-          scroll-snap-align: center;
-          vertical-align: top;
-          border-radius: 15px;
+        
+        .loading-text {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
         }
-
-        .slide img {
-          width: 100%;
-          height: 100%;
-          object-fit: contain;
-          transition: transform 0.5s ease;
-          pointer-events: none;
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255,255,255,0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
         }
-
-        .slide.active {
-          width: 700px;
-          height: 400px;
-          z-index: 10;
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
-
-        .slide.active img {
-          object-fit: contain;
-          object-position: 50% 50%;
-        }
-
-        main::before {
-          content: "";
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background-image: url('WhatsApp Image 2024-01-11 at 12.02.36_16b4adc2.jpg');
-          background-size: cover;
-          background-position: center top;
-          background-repeat: no-repeat;
-          background-color: rgba(255, 255, 255, 0.3);
-          z-index: 0;
-        }
-
-        .hero {
-          background-color: transparent;
-          position: relative;
-          z-index: 1;
-          border-radius: 10px;
-          padding: 1rem;
-        }
-
-        .section {
-          background-color: rgba(255, 255, 255, 0.3);
-          position: relative;
-          z-index: 1;
-          border-radius: 10px;
-          padding: 1rem;
+        
+        .redirect-info {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            opacity: 0.7;
         }
     </style>
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fstreampay6097back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.8"></script>
 </head>
 <body>
-<<<<<<< HEAD
-    <header id="header">
-        <div class="container">
-            <div class="header-content">
-            <video src="Untitled design-3.mp4" width="300" height="100" autoplay loop muted aria-label="KG9 Logo"></video>
-<nav>
-    <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="livestream2.html">Livestream</a></li>
-        <li><a href="#" id="loginBtn">Login</a></li>
-    </ul>
-</nav>
-<!-- Hamburger menu replaced with tested version -->
-<div class="hamburger-menu">
-    <button class="menu-btn" aria-label="Toggle menu" type="button">
-        <i class="fas fa-bars"></i>
-    </button>
-    <div class="dropdown-content" role="menu" aria-hidden="true" id="dropdownMenu">
-        <a href="#" role="menuitem" tabindex="-1">
-            <i class="fas fa-user"></i>
-            <span>Profile</span>
-        </a>
-        <a href="#" role="menuitem" tabindex="-1">
-            <i class="fas fa-cog"></i>
-            <span>Settings</span>
-        </a>
-        <a href="#" role="menuitem" tabindex="-1">
-            <i class="fas fa-credit-card"></i>
-            <span>Billing</span>
-        </a>
-        <a href="#" role="menuitem" tabindex="-1">
-            <i class="fas fa-history"></i>
-            <span>Usage</span>
-        </a>
-        <a href="#" role="menuitem" tabindex="-1">
-            <i class="fas fa-star"></i>
-            <span>Manage Subscriptions</span>
-        </a>
-        <a href="#" class="logout" role="menuitem" tabindex="-1" id="logoutBtn">
-            <i class="fas fa-sign-out-alt"></i>
-            <span>Logout</span>
-        </a>
-    </div>
-</div>
-        </div>
-    </header>
-
-    <main style="position: relative; padding-top: 120px; padding-bottom: 20px; /* background-image: url('../imageslide/cover logo.png'); */ background-size: contain; background-position: center; background-repeat: repeat;">
-        <div class="slider-container" id="slider" style="position: relative; z-index: 1; background: rgba(255,255,255,0.1);">
-            <div class="slide"><img src="kg9 cap banner.png" alt="KG9 Cap Banner" /></div>
-            <div class="slide"><img src="kena blu.png" alt="Kena Blu" /></div>
-            <div class="slide"><img src="KG9BLU.png" alt="KG9 Blu" /></div>
-            <div class="slide"><img src="icon jello.png" alt="Icon Jello" /></div>
-        </div>
-        <section id="home" class="hero">
-            <div class="container">
-                <h1>Professional Video Production</h1>
-                <p>Bringing your vision to life with stunning cinematography and expert editing</p>
-            </div>
-        </section>
-
-        <div class="container">
-            <section id="portfolio" class="section">
-                <h2>Our Portfolio</h2>
-                <div class="video-grid">
-                    <div class="video-card">
-                        <div class="video-placeholder">Local News Story</div>
-                        <h3>Local News Story</h3>
-                        <p>A compelling local news story capturing important community events.</p>
-                    </div>
-                    <div class="video-card">
-                        <div class="video-placeholder">Corporate Promo</div>
-                        <h3>Tech Company Launch</h3>
-                        <p>Dynamic commercial showcasing innovative technology solutions with sleek modern aesthetics.</p>
-                    </div>
-                    <div class="video-card">
-                        <div class="video-placeholder">Music Video</div>
-                        <h3>Artist Music Video</h3>
-                        <p>Creative storytelling combined with rhythm and visual effects for an emerging indie artist.</p>
-                        <iframe width="100%" height="200" src="https://www.youtube.com/embed/kmdfzI_zpms" title="YouTube video player" frameborder="0" allowfullscreen style="border-radius: 10px;"></iframe>
-                    </div>
-                    <div class="video-card">
-                        <div class="video-placeholder">Documentary</div>
-                        <h3>Local Business Stories</h3>
-                        <p>Authentic documentary capturing the heart and soul of small business owners in our community.</p>
-                    </div>
-                    <div class="video-card">
-                        <div class="video-placeholder">Social Media Content</div>
-                        <h3>Instagram Reels Package</h3>
-                        <p>Trendy, engaging short-form content optimized for social media platforms and viral potential.</p>
-                        <iframe width="100%" height="200" src="https://www.youtube.com/embed/pA6kQIASkxM" title="YouTube video player" frameborder="0" allowfullscreen style="border-radius: 10px;"></iframe>
-                    </div>
-                    <div class="video-card">
-                        <div class="video-placeholder">Event Coverage</div>
-                        <h3>Conference Highlights</h3>
-                        <p>Professional event documentation with multiple camera angles and expert post-production.</p>
-                        <iframe width="100%" height="200" src="https://www.youtube.com/embed/v724-BWTO54" title="YouTube video player" frameborder="0" allowfullscreen style="border-radius: 10px;"></iframe>
-                    </div>
-                </div>
-            </section>
-
-            <section id="styles" class="section">
-                <h2>Video Editing Styles</h2>
-                <div class="styles-grid">
-                    <div class="style-card" onclick="selectStyle('cinematic')">
-                        <div class="style-icon cinematic">🎬</div>
-                        <h3>Cinematic</h3>
-                        <p>Dramatic color grading, smooth transitions, and film-like quality for high-impact storytelling.</p>
-                        <ul style="text-align: left; margin-top: 1rem;">
-                            <li>Color correction & grading</li>
-                            <li>Slow motion sequences</li>
-                            <li>Dynamic camera movements</li>
-                            <li>Professional audio mixing</li>
-                        </ul>
-                    </div>
-                    <div class="style-card" onclick="selectStyle('commercial')">
-                        <div class="style-icon commercial">📺</div>
-                        <h3>Commercial</h3>
-                        <p>Fast-paced, energetic cuts with bold graphics perfect for advertising and promotions.</p>
-                        <ul style="text-align: left; margin-top: 1rem;">
-                            <li>Quick cuts & transitions</li>
-                            <li>Motion graphics</li>
-                            <li>Brand integration</li>
-                            <li>Call-to-action overlays</li>
-                        </ul>
-                    </div>
-                    <div class="style-card" onclick="selectStyle('social')">
-                        <div class="style-icon social">📱</div>
-                        <h3>Social Media</h3>
-                        <p>Trendy, engaging content optimized for Instagram, TikTok, and other social platforms.</p>
-                        <ul style="text-align: left; margin-top: 1rem;">
-                            <li>Vertical format optimization</li>
-                            <li>Trending effects</li>
-                            <li>Captions & text overlays</li>
-                            <li>Platform-specific sizing</li>
-                        </ul>
-                    </div>
-                    <div class="style-card" onclick="selectStyle('corporate')">
-                        <div class="style-icon corporate">🏢</div>
-                        <h3>Corporate</h3>
-                        <p>Professional, clean aesthetic perfect for business presentations and company profiles.</p>
-                        <ul style="text-align: left; margin-top: 1rem;">
-                            <li>Clean transitions</li>
-                            <li>Professional typography</li>
-                            <li>Consistent branding</li>
-                            <li>Interview-style editing</li>
-                        </ul>
-                    </div>
-                    <div class="style-card" onclick="selectStyle('wedding')">
-                        <div class="style-icon wedding">💒</div>
-                        <h3>Wedding</h3>
-                        <p>Romantic, emotional storytelling that captures the beauty and emotion of your special day.</p>
-                        <ul style="text-align: left; margin-top: 1rem;">
-                            <li>Emotional storytelling</li>
-                            <li>Soft color palettes</li>
-                            <li>Music synchronization</li>
-                            <li>Highlight reel creation</li>
-                        </ul>
-                    </div>
-                    <div class="style-card" onclick="selectStyle('documentary')">
-                        <div class="style-icon documentary">🎥</div>
-                        <h3>Documentary</h3>
-                        <p>Authentic, narrative-driven approach that tells compelling real-world stories.</p>
-                        <ul style="text-align: left; margin-top: 1rem;">
-                            <li>Narrative structure</li>
-                            <li>Interview integration</li>
-                            <li>B-roll storytelling</li>
-                            <li>Natural color grading</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <section id="pricing" class="section">
-                <h2>Choose Your Plan</h2>
-                <div class="pricing-grid">
-                    <div class="pricing-card">
-                        <div class="plan-name">Starter</div>
-                        <div class="plan-price">$29<span>/month</span></div>
-                        <ul class="plan-features">
-                            <li>2 video projects per month</li>
-                            <li>Basic editing styles</li>
-                            <li>1080p export quality</li>
-                            <li>48-hour turnaround</li>
-                            <li>Email support</li>
-                            <li class="unavailable">Priority support</li>
-                            <li class="unavailable">4K export quality</li>
-                            <li class="unavailable">Custom graphics</li>
-                        </ul>
-                        <button class="subscribe-btn" onclick="handleSubscription(event)">Choose Starter</button>
-                    </div>
-                    <div class="pricing-card featured">
-                        <div class="plan-name">Professional</div>
-                        <div class="plan-price">$79<span>/month</span></div>
-                        <ul class="plan-features">
-                            <li>5 video projects per month</li>
-                            <li>All editing styles</li>
-                            <li>4K export quality</li>
-                            <li>24-hour turnaround</li>
-                            <li>Priority email support</li>
-                            <li>Custom graphics included</li>
-                            <li>Music licensing included</li>
-                            <li class="unavailable">Unlimited revisions</li>
-                        </ul>
-                        <button class="subscribe-btn" onclick="handleSubscription(event)">Choose Professional</button>
-                    </div>
-                    <div class="pricing-card">
-                        <div class="plan-name">Enterprise</div>
-                        <div class="plan-price">$199<span>/month</span></div>
-                        <ul class="plan-features">
-                            <li>Unlimited video projects</li>
-                            <li>All editing styles + custom</li>
-                            <li>4K & 8K export quality</li>
-                            <li>12-hour turnaround</li>
-                            <li>Phone & email support</li>
-                            <li>Custom graphics & animations</li>
-                            <li>Premium music licensing</li>
-                            <li>Unlimited revisions</li>
-                        </ul>
-                        <button class="subscribe-btn" onclick="handleSubscription(event)">Choose Enterprise</button>
-                    </div>
-                </div>
-            </section>
-
-            <section id="faq" class="section">
-                <h2>Frequently Asked Questions</h2>
-                <div class="faq-container">
-                    <div class="faq-item">
-                        <div class="faq-question" onclick="toggleFAQ(this)">
-                            <h3>What types of video projects do you handle?</h3>
-                            <span class="faq-toggle">+</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>We handle all types of video projects including corporate videos, commercials, social media content, documentaries, music videos, weddings, and event coverage. Our team has experience with various styles and formats.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-question" onclick="toggleFAQ(this)">
-                            <h3>How long does it take to complete a video project?</h3>
-                            <span class="faq-toggle">+</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Turnaround times vary depending on the complexity of the project. Simple edits can be completed in 24-48 hours, while more complex projects may take 1-2 weeks. We always provide estimated timelines upfront.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-question" onclick="toggleFAQ(this)">
-                            <h3>Do you provide revisions?</h3>
-                            <span class="faq-toggle">+</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Yes! We include revisions in all our packages. The number of revisions depends on your plan - Starter includes 2 revisions, Professional includes 5, and Enterprise includes unlimited revisions.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-question" onclick="toggleFAQ(this)">
-                            <h3>What file formats do you deliver?</h3>
-                            <span class="faq-toggle">+</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>We deliver in multiple formats including MP4, MOV, and AVI. Resolution options include 1080p, 4K, and 8K depending on your plan. We can also provide raw files if needed.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-question" onclick="toggleFAQ(this)">
-                            <h3>Can you work with existing footage?</h3>
-                            <span class="faq-toggle">+</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Absolutely! We can work with your existing footage, or we can handle the entire production process from filming to final edit. Just let us know what you have and what you need.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-question" onclick="toggleFAQ(this)">
-                            <h3>Do you offer rush services?</h3>
-                            <span class="faq-toggle">+</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Yes, we offer rush services for urgent projects. Additional fees may apply depending on the timeline. Contact us for a custom quote for expedited services.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="contact-form-section">
-                    <h3>Still have questions? Get in touch!</h3>
-                    <form class="contact-form" onsubmit="handleContact(event)">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <input type="text" id="contactName" placeholder="Your Name" required>
-                            </div>
-                            <div class="form-group">
-                                <input type="email" id="contactEmail" placeholder="Your Email" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <select id="contactSubject" required>
-                                <option value="">Select Subject</option>
-                                <option value="pricing">Pricing Questions</option>
-                                <option value="timeline">Project Timeline</option>
-                                <option value="technical">Technical Questions</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <textarea id="contactMessage" placeholder="Your Message" rows="4" required></textarea>
-                        </div>
-                        <button type="submit" class="submit-btn">Send Message</button>
-                    </form>
-                </div>
-            </section>
-
-
-        </div>
-    </main>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 KG9 Video. All rights reserved. | Professional Video Production & Editing Services</p>
-        </div>
-    </footer>
-
-
-
-    <!-- Payment Modal -->
-    <div id="subscriptionModal" class="modal">
-        <div class="payment-container">
-            <span class="close" onclick="closeModal()" style="position: absolute; right: 20px; top: 20px; font-size: 2rem; cursor: pointer; color: #999; z-index: 1001;">&times;</span>
-            <div class="payment-header">
-                <h1>Complete Your Subscription</h1>
-                <p>Enter your payment details below</p>
-            </div>
-            <div id="selectedPlan"></div>
-            <!-- PayPal disabled temporarily
-            <script
-              src="https://www.paypal.com/sdk/js?client-id=BAAQ67nKa2ZQ254lm9Zffy9HnWu1n5cFP_1pfTFt7eOjqiYjJuIH-yo6zfSBbnRSD4A_MpcSOZuufzHKxs&components=hosted-buttons&disable-funding=venmo&currency=USD">
-            </script>
-            <div id="paypal-container-JZGDZ88RGZ9JN"></div>
-            <script>
-              paypal.HostedButtons({
-                hostedButtonId: "JZGDZ88RGZ9JN",
-              }).render("#paypal-container-JZGDZ88RGZ9JN")
-            </script>
-            -->
-            <div class="success-message" id="successMessage" style="display: none;">
-                Payment processed successfully!
-            </div>
-        </div>
-    </div>
-
-
-
-
-
-    <script>
-        const slider = document.getElementById('slider');
-        const slides = Array.from(slider.children);
-        let currentIndex = 0;
-        let isUserInteracting = false;
-        let enlargeTimeout;
-        let autoScrollInterval;
-
-        function updateActiveSlide() {
-          slides.forEach(slide => slide.classList.remove('active'));
-          slides[currentIndex].classList.add('active');
-        }
-
-        function scrollToSlide(index) {
-          const slide = slides[index];
-          const sliderRect = slider.getBoundingClientRect();
-          const slideRect = slide.getBoundingClientRect();
-          const sliderCenter = sliderRect.left + sliderRect.width / 2;
-          const slideCenter = slideRect.left + slideRect.width / 2;
-          const scrollOffset = slideCenter - sliderCenter;
-          slider.scrollBy({ left: scrollOffset, behavior: 'smooth' });
-        }
-
-        function startAutoScroll() {
-          updateActiveSlide();
-          scrollToSlide(currentIndex);
-
-          clearTimeout(enlargeTimeout);
-          enlargeTimeout = setTimeout(() => {
-            currentIndex = (currentIndex + 1) % slides.length;
-            startAutoScroll();
-          }, 3000);
-        }
-
-        function stopAutoScroll() {
-          clearTimeout(enlargeTimeout);
-        }
-
-        // Start auto scroll initially
-        startAutoScroll();
-
-        // Drag to scroll functionality
-        let isDown = false;
-        let startX;
-        let scrollLeft;
-
-        slider.addEventListener('mousedown', (e) => {
-          isDown = true;
-          isUserInteracting = true;
-          slider.classList.add('active');
-          startX = e.pageX - slider.offsetLeft;
-          scrollLeft = slider.scrollLeft;
-          stopAutoScroll();
-        });
-
-        slider.addEventListener('mouseleave', () => {
-          if (isDown) {
-            isDown = false;
-            isUserInteracting = false;
-            startAutoScroll();
-          }
-          slider.classList.remove('active');
-        });
-
-        slider.addEventListener('mouseup', () => {
-          if (isDown) {
-            isDown = false;
-            isUserInteracting = false;
-            startAutoScroll();
-          }
-          slider.classList.remove('active');
-        });
-
-        slider.addEventListener('mousemove', (e) => {
-          if (!isDown) return;
-          e.preventDefault();
-          const x = e.pageX - slider.offsetLeft;
-          const walk = (x - startX) * 2; //scroll-fast
-          slider.scrollLeft = scrollLeft - walk;
-        });
-
-        // Update active slide on scroll (user scroll or programmatic)
-        slider.addEventListener('scroll', () => {
-          if (isUserInteracting) {
-            // Find closest slide to center and update currentIndex
-            const sliderRect = slider.getBoundingClientRect();
-            const sliderCenter = sliderRect.left + sliderRect.width / 2;
-
-            let closestIndex = 0;
-            let closestDistance = Infinity;
-
-            slides.forEach((slide, index) => {
-              const rect = slide.getBoundingClientRect();
-              const slideCenter = rect.left + rect.width / 2;
-              const distance = Math.abs(slideCenter - sliderCenter);
-              if (distance < closestDistance) {
-                closestDistance = distance;
-                closestIndex = index;
-              }
-            });
-
-            currentIndex = closestIndex;
-            updateActiveSlide();
-          }
-        });
-
-        // Click on slide to scroll it to center and enlarge
-        slides.forEach((slide, index) => {
-          slide.addEventListener('click', () => {
-            isUserInteracting = true;
-            currentIndex = index;
-            updateActiveSlide();
-            scrollToSlide(currentIndex);
-            stopAutoScroll();
-            // Resume auto scroll after 3 seconds
-            enlargeTimeout = setTimeout(() => {
-              isUserInteracting = false;
-              currentIndex = (currentIndex + 1) % slides.length;
-              startAutoScroll();
-            }, 3000);
-          });
-        });
-    </script> 
-
-
-    <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-auth-compat.js"></script>
-
-    <script type="module" src="script-improved-fixed.js"></script>
-=======
     <script>
         window.location.href = 'user_dashboard.html';
     </script>
->>>>>>> blackboxai/fix-login-redirect
 </body>
 </html>
