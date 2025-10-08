@@ -1825,3 +1825,162 @@ img {
 #faq h2 {
     color: white;
 }
+
+/* === RESPONSIVE BASE STYLES === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+/* === CONTAINER SYSTEM === */
+.container {
+    width: 100%;
+    padding: 0 15px;
+    margin: 0 auto;
+}
+
+/* Mobile First - Default styles are for mobile */
+
+/* Tablet */
+@media (min-width: 768px) {
+    .container {
+        max-width: 720px;
+    }
+    body {
+        font-size: 17px;
+    }
+}
+
+/* Desktop */
+@media (min-width: 992px) {
+    .container {
+        max-width: 960px;
+    }
+}
+
+/* Large Desktop */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1140px;
+    }
+}
+
+/* === RESPONSIVE GRID === */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -15px;
+}
+
+.col {
+    flex: 1;
+    padding: 15px;
+    min-width: 250px;
+}
+
+/* === RESPONSIVE NAVIGATION === */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* === MOBILE NAVIGATION === */
+@media (max-width: 767px) {
+    .nav-toggle {
+        display: block;
+    }
+
+    .nav-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: white;
+        flex-direction: column;
+        padding: 1rem;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .nav-menu.active {
+        display: flex;
+    }
+}
+
+/* === RESPONSIVE IMAGES === */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* === RESPONSIVE TYPOGRAPHY === */
+h1 { font-size: clamp(1.5rem, 5vw, 3rem); }
+h2 { font-size: clamp(1.3rem, 4vw, 2.5rem); }
+h3 { font-size: clamp(1.1rem, 3vw, 2rem); }
+
+/* === RESPONSIVE BUTTONS === */
+.btn {
+    padding: 12px 24px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .btn {
+        width: auto;
+    }
+}
+
+/* Force horizontal scrolling prevention */
+body {
+    overflow-x: hidden;
+}
+
+/* Fix for tap targets on mobile */
+button, a {
+    min-height: 44px;
+    min-width: 44px;
+}
+
+/* Prevent text from being too small */
+p, span, div {
+    font-size: clamp(14px, 4vw, 16px);
+}
+
+input, select, textarea {
+    font-size: 16px; /* Prevents zoom on iOS */
+    width: 100%;
+    padding: 12px;
+}
+
+@media (min-width: 768px) {
+    input, select, textarea {
+        width: auto;
+    }
+}
