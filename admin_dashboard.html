@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Dashboard - StreamPay Pro</title>
-    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="main.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fstreampay6097back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.8"></script>
@@ -30,7 +30,7 @@
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="admin_dashboard.html" class="text-primary font-medium border-b-2 border-primary pb-1">Dashboard</a>
                     <a href="admin_video_management.html" class="text-text-secondary hover:text-primary transition-colors duration-200">Video Management</a>
-                    <a href="user_dashboard.html" class="text-text-secondary hover:text-primary transition-colors duration-200">User View</a>
+                    <a href="video_player.html?adminView=true" class="text-text-secondary hover:text-primary transition-colors duration-200">User View</a>
                     <a href="payment_history.html" class="text-text-secondary hover:text-primary transition-colors duration-200">Payments</a>
                 </div>
                 
@@ -44,7 +44,7 @@
                         </div>
                         <span class="text-sm font-medium text-text-primary">Admin</span>
                     </div>
-                    <a href="user_login.html" class="text-text-secondary hover:text-primary transition-colors duration-200">
+                    <!-- Logout link removed -->
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
                         </svg>
@@ -67,9 +67,9 @@
             <div class="px-2 pt-2 pb-3 space-y-1">
                 <a href="admin_dashboard.html" class="block px-3 py-2 text-primary font-medium bg-primary-50 rounded-md">Dashboard</a>
                 <a href="admin_video_management.html" class="block px-3 py-2 text-text-secondary hover:text-primary hover:bg-secondary-50 rounded-md transition-colors duration-200">Video Management</a>
-                <a href="user_dashboard.html" class="block px-3 py-2 text-text-secondary hover:text-primary hover:bg-secondary-50 rounded-md transition-colors duration-200">User View</a>
+                <a href="video_player.html?adminView=true" class="block px-3 py-2 text-text-secondary hover:text-primary hover:bg-secondary-50 rounded-md transition-colors duration-200">User View</a>
                 <a href="payment_history.html" class="block px-3 py-2 text-text-secondary hover:text-primary hover:bg-secondary-50 rounded-md transition-colors duration-200">Payments</a>
-                <a href="user_login.html" class="block px-3 py-2 text-text-secondary hover:text-primary hover:bg-secondary-50 rounded-md transition-colors duration-200">Logout</a>
+                <a href="user_dashboard.html" class="block px-3 py-2 text-text-secondary hover:text-primary hover:bg-secondary-50 rounded-md transition-colors duration-200">Logout</a>
             </div>
         </div>
     </nav>
@@ -601,13 +601,7 @@
         });
 
         // Logout functionality
-        document.querySelector('a[href="user_login.html"]').addEventListener('click', function(e) {
-            e.preventDefault();
-            if (confirm('Are you sure you want to logout?')) {
-                localStorage.removeItem('streamPayUser');
-                window.location.href = 'user_login.html';
-            }
-        });
+        // Logout removed
     </script>
 <script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
 </body>

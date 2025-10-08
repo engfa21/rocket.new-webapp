@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>User Dashboard - StreamPay Pro</title>
-    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="main.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fstreampay6097back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.8"></script>
@@ -31,7 +31,7 @@
                     <a href="user_dashboard.html" class="text-primary font-medium">Dashboard</a>
                     <a href="video_player.html" class="text-text-secondary hover:text-primary transition-colors duration-200">Videos</a>
                     <a href="payment_history.html" class="text-text-secondary hover:text-primary transition-colors duration-200">Payment History</a>
-                    <a href="admin_dashboard.html" class="text-text-secondary hover:text-primary transition-colors duration-200">Admin</a>
+                    <button id="admin-login-btn" class="text-text-secondary hover:text-primary transition-colors duration-200" style="background: #764ba2; color: white; border: none; border-radius: 5px; padding: 6px 16px; cursor: pointer;">Admin</button>
                 </div>
                 
                 <!-- User Menu -->
@@ -509,6 +509,16 @@
     </footer>
 
     <script>
+// Admin button redirects to user_login.html
+document.addEventListener('DOMContentLoaded', function() {
+    var adminBtn = document.getElementById('admin-login-btn');
+    if (adminBtn) {
+        adminBtn.addEventListener('click', function() {
+            window.location.href = 'user_login.html';
+        });
+    }
+});
+// Admin login removed
         // Mobile menu toggle
         document.getElementById('mobile-menu-btn').addEventListener('click', function() {
             const mobileMenu = document.getElementById('mobile-menu');
@@ -614,7 +624,7 @@
         // Logout functionality
         function logout() {
             localStorage.removeItem('streamPayUser');
-            window.location.href = 'user_login.html';
+            // login removed
         }
 
         document.getElementById('logout-btn').addEventListener('click', logout);
@@ -627,8 +637,7 @@
                 const userData = JSON.parse(user);
                 document.getElementById('user-email').textContent = userData.email;
             } else {
-                // Redirect to login if not authenticated
-                window.location.href = 'user_login.html';
+                // login removed
             }
         });
 

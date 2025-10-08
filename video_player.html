@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Video Player - StreamPay Pro</title>
-    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="main.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <script src="https://www.youtube.com/iframe_api"></script>
@@ -58,7 +58,7 @@
                             <a href="user_dashboard.html" class="block px-4 py-2 text-sm text-text-secondary hover:bg-secondary-50 hover:text-primary transition-colors duration-200">Dashboard</a>
                             <a href="payment_history.html" class="block px-4 py-2 text-sm text-text-secondary hover:bg-secondary-50 hover:text-primary transition-colors duration-200">Payment History</a>
                             <div class="border-t border-border my-2"></div>
-                            <a href="user_login.html" class="block px-4 py-2 text-sm text-text-secondary hover:bg-secondary-50 hover:text-primary transition-colors duration-200">Sign Out</a>
+                            <!-- Sign Out removed -->
                         </div>
                     </div>
                 </div>
@@ -125,7 +125,7 @@
                             </svg>
                             <h3 class="text-xl font-bold mb-2">Access Restricted</h3>
                             <p class="text-gray-300 mb-4">This premium content requires payment to access.</p>
-                            <a href="user_dashboard.html" class="btn-primary">Purchase Access</a>
+                            <a href="https://www.paypal.com/ncp/payment/VSFWCQARFRZYN" class="btn-primary">Purchase Access</a>
                         </div>
                     </div>
                     
@@ -356,21 +356,32 @@
         function loadCurrentVideo() {
             // Check user authentication first
             const user = localStorage.getItem('streamPayUser');
-            
+
             if (!user) {
                 showAccessDenied();
                 return;
             }
-            
+
             const userData = JSON.parse(user);
-            
-            // Check payment access
-            const hasPaidAccess = userData.role === 'admin' || userData.email === 'user@streampay.com' || userData.email === 'demo@streampay.com';
-            
-            if (!hasPaidAccess) {
-                showAccessDenied();
-                return;
+
+            // Check for payment success in URL params
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('paid') === 'true') {
+                userData.paidAccess = true;
+                localStorage.setItem('streamPayUser', JSON.stringify(userData));
+                // Clean up URL
+                window.history.replaceState(null, null, window.location.pathname);
             }
+
+            // Check payment access
+            const adminView = urlParams.get('adminView') === 'true';
+
+            const hasPaidAccess = userData.role === 'admin' || userData.email === 'user@streampay.com' || userData.email === 'demo@streampay.com' || userData.paidAccess === true || adminView;
+
+    if (!hasPaidAccess) {
+        showAccessDenied();
+        return;
+    }
             
             // Get current video from admin dashboard
             const adminCurrentVideo = localStorage.getItem('streamPayCurrentVideo');
