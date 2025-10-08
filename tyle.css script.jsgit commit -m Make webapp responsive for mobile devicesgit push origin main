@@ -1,0 +1,188 @@
+[1mdiff --git a/script.js b/script.js[m
+[1mindex b1a0d5a..72afacd 100644[m
+[1m--- a/script.js[m
+[1m+++ b/script.js[m
+[36m@@ -303,3 +303,16 @@[m [mfunction showUsage() {[m
+     }[m
+     alert('Usage statistics coming soon!');[m
+ }[m
+[32m+[m[41m[m
+[32m+[m[32m// Mobile navigation toggle[m[41m[m
+[32m+[m[32mdocument.addEventListener('DOMContentLoaded', function() {[m[41m[m
+[32m+[m[32m    // Mobile navigation toggle[m[41m[m
+[32m+[m[32m    const navToggle = document.querySelector('.nav-toggle');[m[41m[m
+[32m+[m[32m    const navMenu = document.querySelector('.nav-menu');[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32m    if (navToggle && navMenu) {[m[41m[m
+[32m+[m[32m        navToggle.addEventListener('click', function() {[m[41m[m
+[32m+[m[32m            navMenu.classList.toggle('active');[m[41m[m
+[32m+[m[32m        });[m[41m[m
+[32m+[m[32m    }[m[41m[m
+[32m+[m[32m});[m[41m[m
+[1mdiff --git a/style.css b/style.css[m
+[1mindex 99f02ce..f1e100a 100644[m
+[1m--- a/style.css[m
+[1m+++ b/style.css[m
+[36m@@ -1825,3 +1825,162 @@[m [mimg {[m
+ #faq h2 {[m
+     color: white;[m
+ }[m
+[32m+[m[41m[m
+[32m+[m[32m/* === RESPONSIVE BASE STYLES === */[m[41m[m
+[32m+[m[32m* {[m[41m[m
+[32m+[m[32m    margin: 0;[m[41m[m
+[32m+[m[32m    padding: 0;[m[41m[m
+[32m+[m[32m    box-sizing: border-box;[m[41m[m
+[32m+[m[32m}[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32mbody {[m[41m[m
+[32m+[m[32m    font-family: Arial, sans-serif;[m[41m[m
+[32m+[m[32m    line-height: 1.6;[m[41m[m
+[32m+[m[32m    font-size: 16px;[m[41m[m
+[32m+[m[32m}[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32m/* === CONTAINER SYSTEM === */[m[41m[m
+[32m+[m[32m.container {[m[41m[m
+[32m+[m[32m    width: 100%;[m[41m[m
+[32m+[m[32m    padding: 0 15px;[m[41m[m
+[32m+[m[32m    margin: 0 auto;[m[41m[m
+[32m+[m[32m}[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32m/* Mobile First - Default styles are for mobile */[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32m/* Tablet */[m[41m[m
+[32m+[m[32m@media (min-width: 768px) {[m[41m[m
+[32m+[m[32m    .container {[m[41m[m
+[32m+[m[32m        max-width: 720px;[m[41m[m
+[32m+[m[32m    }[m[41m[m
+[32m+[m[32m    body {[m[41m[m
+[32m+[m[32m        font-size: 17px;[m[41m[m
+[32m+[m[32m    }[m[41m[m
+[32m+[m[32m}[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32m/* Desktop */[m[41m[m
+[32m+[m[32m@media (min-width: 992px) {[m[41m[m
+[32m+[m[32m    .container {[m[41m[m
+[32m+[m[32m        max-width: 960px;[m[41m[m
+[32m+[m[32m    }[m[41m[m
+[32m+[m[32m}[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32m/* Large Desktop */[m[41m[m
+[32m+[m[32m@media (min-width: 1200px) {[m[41m[m
+[32m+[m[32m    .container {[m[41m[m
+[32m+[m[32m        max-width: 1140px;[m[41m[m
+[32m+[m[32m    }[m[41m[m
+[32m+[m[32m}[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32m/* === RESPONSIVE GRID === */[m[41m[m
+[32m+[m[32m.row {[m[41m[m
+[32m+[m[32m    display: flex;[m[41m[m
+[32m+[m[32m    flex-wrap: wrap;[m[41m[m
+[32m+[m[32m    margin: 0 -15px;[m[41m[m
+[32m+[m[32m}[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32m.col {[m[41m[m
+[32m+[m[32m    flex: 1;[m[41m[m
+[32m+[m[32m    padding: 15px;[m[41m[m
+[32m+[m[32m    min-width: 250px;[m[41m[m
+[32m+[m[32m}[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32m/* === RESPONSIVE NAVIGATION === */[m[41m[m
+[32m+[m[32m.navbar {[m[41m[m
+[32m+[m[32m    display: flex;[m[41m[m
+[32m+[m[32m    justify-content: space-between;[m[41m[m
+[32m+[m[32m    align-items: center;[m[41m[m
+[32m+[m[32m    padding: 1rem 0;[m[41m[m
+[32m+[m[32m}[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32m.nav-menu {[m[41m[m
+[32m+[m[32m    display: flex;[m[41m[m
+[32m+[m[32m    list-style: none;[m[41m[m
+[32m+[m[32m    gap: 2rem;[m[41m[m
+[32m+[m[32m}[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32m.nav-toggle {[m[41m[m
+[32m+[m[32m    display: none;[m[41m[m
+[32m+[m[32m    background: none;[m[41m[m
+[32m+[m[32m    border: none;[m[41m[m
+[32m+[m[32m    font-size: 1.5rem;[m[41m[m
+[32m+[m[32m    cursor: pointer;[m[41m[m
+[32m+[m[32m}[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32m/* === MOBILE NAVIGATION === */[m[41m[m
+[32m+[m[32m@media (max-width: 767px) {[m[41m[m
+[32m+[m[32m    .nav-toggle {[m[41m[m
+[32m+[m[32m        display: block;[m[41m[m
+[32m+[m[32m    }[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32m    .nav-menu {[m[41m[m
+[32m+[m[32m        display: none;[m[41m[m
+[32m+[m[32m        position: absolute;[m[41m[m
+[32m+[m[32m        top: 100%;[m[41m[m
+[32m+[m[32m        left: 0;[m[41m[m
+[32m+[m[32m        width: 100%;[m[41m[m
+[32m+[m[32m        background: white;[m[41m[m
+[32m+[m[32m        flex-direction: column;[m[41m[m
+[32m+[m[32m        padding: 1rem;[m[41m[m
+[32m+[m[32m        box-shadow: 0 2px 5px rgba(0,0,0,0.1);[m[41m[m
+[32m+[m[32m    }[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32m    .nav-menu.active {[m[41m[m
+[32m+[m[32m        display: flex;[m[41m[m
+[32m+[m[32m    }[m[41m[m
+[32m+[m[32m}[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32m/* === RESPONSIVE IMAGES === */[m[41m[m
+[32m+[m[32mimg {[m[41m[m
+[32m+[m[32m    max-width: 100%;[m[41m[m
+[32m+[m[32m    height: auto;[m[41m[m
+[32m+[m[32m}[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32m/* === RESPONSIVE TYPOGRAPHY === */[m[41m[m
+[32m+[m[32mh1 { font-size: clamp(1.5rem, 5vw, 3rem); }[m[41m[m
+[32m+[m[32mh2 { font-size: clamp(1.3rem, 4vw, 2.5rem); }[m[41m[m
+[32m+[m[32mh3 { font-size: clamp(1.1rem, 3vw, 2rem); }[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32m/* === RESPONSIVE BUTTONS === */[m[41m[m
+[32m+[m[32m.btn {[m[41m[m
+[32m+[m[32m    padding: 12px 24px;[m[41m[m
+[32m+[m[32m    font-size: 1rem;[m[41m[m
+[32m+[m[32m    border: none;[m[41m[m
+[32m+[m[32m    border-radius: 5px;[m[41m[m
+[32m+[m[32m    cursor: pointer;[m[41m[m
+[32m+[m[32m    width: 100%;[m[41m[m
+[32m+[m[32m}[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32m@media (min-width: 768px) {[m[41m[m
+[32m+[m[32m    .btn {[m[41m[m
+[32m+[m[32m        width: auto;[m[41m[m
+[32m+[m[32m    }[m[41m[m
+[32m+[m[32m}[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32m/* Force horizontal scrolling prevention */[m[41m[m
+[32m+[m[32mbody {[m[41m[m
+[32m+[m[32m    overflow-x: hidden;[m[41m[m
+[32m+[m[32m}[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32m/* Fix for tap targets on mobile */[m[41m[m
+[32m+[m[32mbutton, a {[m[41m[m
+[32m+[m[32m    min-height: 44px;[m[41m[m
+[32m+[m[32m    min-width: 44px;[m[41m[m
+[32m+[m[32m}[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32m/* Prevent text from being too small */[m[41m[m
+[32m+[m[32mp, span, div {[m[41m[m
+[32m+[m[32m    font-size: clamp(14px, 4vw, 16px);[m[41m[m
+[32m+[m[32m}[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32minput, select, textarea {[m[41m[m
+[32m+[m[32m    font-size: 16px; /* Prevents zoom on iOS */[m[41m[m
+[32m+[m[32m    width: 100%;[m[41m[m
+[32m+[m[32m    padding: 12px;[m[41m[m
+[32m+[m[32m}[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32m@media (min-width: 768px) {[m[41m[m
+[32m+[m[32m    input, select, textarea {[m[41m[m
+[32m+[m[32m        width: auto;[m[41m[m
+[32m+[m[32m    }[m[41m[m
+[32m+[m[32m}[m[41m[m
