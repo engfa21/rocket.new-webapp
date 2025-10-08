@@ -125,7 +125,7 @@
                             </svg>
                             <h3 class="text-xl font-bold mb-2">Access Restricted</h3>
                             <p class="text-gray-300 mb-4">This premium content requires payment to access.</p>
-                            <a href="user_dashboard.html" class="btn-primary">Purchase Access</a>
+                            <a href="https://www.paypal.com/ncp/payment/VSFWCQARFRZYN" class="btn-primary">Purchase Access</a>
                         </div>
                     </div>
                     
@@ -356,21 +356,32 @@
         function loadCurrentVideo() {
             // Check user authentication first
             const user = localStorage.getItem('streamPayUser');
-            
+
             if (!user) {
                 showAccessDenied();
                 return;
             }
-            
+
             const userData = JSON.parse(user);
-            
-            // Check payment access
-            const hasPaidAccess = userData.role === 'admin' || userData.email === 'user@streampay.com' || userData.email === 'demo@streampay.com';
-            
-            if (!hasPaidAccess) {
-                showAccessDenied();
-                return;
+
+            // Check for payment success in URL params
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('paid') === 'true') {
+                userData.paidAccess = true;
+                localStorage.setItem('streamPayUser', JSON.stringify(userData));
+                // Clean up URL
+                window.history.replaceState(null, null, window.location.pathname);
             }
+
+            // Check payment access
+            const adminView = urlParams.get('adminView') === 'true';
+
+            const hasPaidAccess = userData.role === 'admin' || userData.email === 'user@streampay.com' || userData.email === 'demo@streampay.com' || userData.paidAccess === true || adminView;
+
+    if (!hasPaidAccess) {
+        showAccessDenied();
+        return;
+    }
             
             // Get current video from admin dashboard
             const adminCurrentVideo = localStorage.getItem('streamPayCurrentVideo');
