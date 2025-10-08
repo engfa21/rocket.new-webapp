@@ -31,7 +31,7 @@
                     <a href="user_dashboard.html" class="text-primary font-medium">Dashboard</a>
                     <a href="video_player.html" class="text-text-secondary hover:text-primary transition-colors duration-200">Videos</a>
                     <a href="payment_history.html" class="text-text-secondary hover:text-primary transition-colors duration-200">Payment History</a>
-                    <a href="user_login.html" id="admin-login-link" class="text-text-secondary hover:text-primary transition-colors duration-200">Admin</a>
+                    <!-- Admin link removed -->
                 </div>
                 
                 <!-- User Menu -->
@@ -509,16 +509,7 @@
     </footer>
 
     <script>
-// Ensure Admin link opens admin login
-document.addEventListener('DOMContentLoaded', function() {
-    var adminLink = document.getElementById('admin-login-link');
-    if (adminLink) {
-        adminLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            window.location.href = 'user_login.html';
-        });
-    }
-});
+// Admin login removed
         // Mobile menu toggle
         document.getElementById('mobile-menu-btn').addEventListener('click', function() {
             const mobileMenu = document.getElementById('mobile-menu');
@@ -624,7 +615,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Logout functionality
         function logout() {
             localStorage.removeItem('streamPayUser');
-            window.location.href = 'user_login.html';
+            // login removed
         }
 
         document.getElementById('logout-btn').addEventListener('click', logout);
@@ -637,8 +628,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const userData = JSON.parse(user);
                 document.getElementById('user-email').textContent = userData.email;
             } else {
-                // Redirect to login if not authenticated
-                window.location.href = 'user_login.html';
+                // login removed
             }
         });
 
