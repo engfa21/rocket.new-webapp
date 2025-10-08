@@ -51,6 +51,223 @@
         .payment-success:hover {
             background: linear-gradient(135deg, #218838, #1e9e8a);
         }
+
+        /* Comment Section Styling */
+        .comment-section {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 25px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .comment-section h3 {
+            color: #fff;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .comment-section h3 i {
+            color: #ff8a00;
+        }
+
+        .comment-input-container {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+
+        .comment-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .comment-input:focus {
+            border-color: #ff8a00;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 0 3px rgba(255, 138, 0, 0.2);
+        }
+
+        .comment-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .comment-submit-btn {
+            background: linear-gradient(135deg, #ff8a00, #ff6b00);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            min-width: 80px;
+            justify-content: center;
+        }
+
+        .comment-submit-btn:hover {
+            background: linear-gradient(135deg, #ff6b00, #ff4500);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 138, 0, 0.4);
+        }
+
+        .comment-submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .comments-container {
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 10px;
+            scrollbar-width: thin;
+            scrollbar-color: #ff8a00 rgba(255, 255, 255, 0.1);
+        }
+
+        .comments-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .comments-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .comments-container::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #ff8a00, #ff6b00);
+            border-radius: 10px;
+        }
+
+        .comments-container::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #ff6b00, #ff4500);
+        }
+
+        .no-comments {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-style: italic;
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+        }
+
+        .comment {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 15px 20px;
+            margin-bottom: 12px;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .comment::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, #ff8a00, #ff6b00);
+            border-radius: 2px 0 0 2px;
+        }
+
+        .comment:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 138, 0, 0.3);
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .comment-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .comment-text {
+            color: #fff;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            flex: 1;
+            word-wrap: break-word;
+        }
+
+        .comment-time {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.8rem;
+            font-weight: 500;
+            white-space: nowrap;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 4px 8px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Comment fade-in animation */
+        @keyframes commentFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .comment {
+            animation: commentFadeIn 0.3s ease-out;
+        }
+
+        /* Mobile responsiveness for comments */
+        @media (max-width: 768px) {
+            .comment-input-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .comment-input {
+                width: 100%;
+            }
+
+            .comment-submit-btn {
+                width: 100%;
+                padding: 14px 20px;
+            }
+
+            .comments-container {
+                max-height: 300px;
+            }
+
+            .comment-content {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .comment-time {
+                align-self: flex-end;
+            }
+        }
     </style>
 </head>
 <body class="min-h-screen bg-gradient-to-br from-primary-50 via-background to-accent-50">
@@ -273,17 +490,15 @@
                     <!-- Comment Section -->
                     <div class="container">
                         <div class="comment-section">
-                            <h3><i class="fas fa-comments"></i> Comments</h3>
+                            <h3><i class="fas fa-comments"></i> Live Chat</h3>
                             <div class="comment-input-container">
-                                <input type="text" id="comment-input" class="comment-input" placeholder="Share your thoughts...">
-                                <button id="submit-comment" class="comment-submit-btn">
-                                    <i class="fas fa-paper-plane"></i> Post
+                                <input type="text" id="comment-input" class="comment-input" placeholder="Type your comment..." maxlength="200">
+                                <button id="comment-submit" class="comment-submit-btn">
+                                    <i class="fas fa-paper-plane"></i> Send
                                 </button>
                             </div>
                             <div id="comments-container" class="comments-container">
-                                <div class="no-comments">
-                                    <p>Be the first to comment!</p>
-                                </div>
+                                <div class="no-comments">Be the first to comment!</div>
                             </div>
                         </div>
                     </div>
@@ -703,52 +918,159 @@
             // You can display this somewhere if needed
         }
 
-        // Comment functionality
-        let comments = JSON.parse(localStorage.getItem('videoComments')) || [];
+        // Comment system functionality
+        const COMMENT_RATE_LIMIT = 5 * 1000; // 5 seconds between comments
+        let lastCommentTime = 0;
+        let comments = [];
 
-        function renderComments() {
+        // Load existing comments
+        function loadComments() {
             const container = document.getElementById('comments-container');
+
             if (comments.length === 0) {
-                container.innerHTML = '<div class="no-comments"><p>Be the first to comment!</p></div>';
+                container.innerHTML = '<div class="no-comments">Be the first to comment!</div>';
                 return;
             }
 
-            container.innerHTML = comments.map(comment => `
-                <div class="comment">
-                    <div class="comment-content">
-                        <div class="comment-text">${comment.text}</div>
-                        <div class="comment-time">${new Date(comment.timestamp).toLocaleString()}</div>
-                    </div>
+            container.innerHTML = '';
+            comments.forEach(comment => {
+                addCommentToDisplay(comment.text, comment.timestamp, comment.id);
+            });
+        }
+
+        // Add comment to display with enhanced animation
+        function addCommentToDisplay(text, timestamp, id) {
+            const container = document.getElementById('comments-container');
+            const noComments = container.querySelector('.no-comments');
+
+            if (noComments) {
+                noComments.remove();
+            }
+
+            const commentDiv = document.createElement('div');
+            commentDiv.className = 'comment';
+            commentDiv.dataset.id = id;
+            commentDiv.style.opacity = '0';
+            commentDiv.style.transform = 'translateY(10px)';
+
+            const date = new Date(timestamp);
+            const timeStr = date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
+            commentDiv.innerHTML = `
+                <div class="comment-content">
+                    <span class="comment-text">${escapeHtml(text)}</span>
+                    <span class="comment-time">${timeStr}</span>
                 </div>
-            `).join('');
+            `;
+
+            container.appendChild(commentDiv);
+            container.scrollTop = container.scrollHeight;
+
+            // Animate in the new comment
+            setTimeout(() => {
+                commentDiv.style.transition = 'all 0.3s ease-out';
+                commentDiv.style.opacity = '1';
+                commentDiv.style.transform = 'translateY(0)';
+            }, 50);
         }
 
-        function addComment(text) {
-            const comment = {
-                text: text,
-                timestamp: Date.now()
-            };
-
-            comments.unshift(comment);
-            localStorage.setItem('videoComments', JSON.stringify(comments));
-            renderComments();
-        }
-
-        // Event listeners for comments
-        document.getElementById('submit-comment').addEventListener('click', function() {
+        // Add new comment
+        function addComment() {
             const input = document.getElementById('comment-input');
             const text = input.value.trim();
 
-            if (text) {
-                addComment(text);
-                input.value = '';
+            // Validate input
+            if (!text) {
+                alert('Please enter a comment');
+                return;
             }
-        });
 
-        document.getElementById('comment-input').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                document.getElementById('submit-comment').click();
+            if (text.length > 200) {
+                alert('Comment is too long (max 200 characters)');
+                return;
             }
+
+            // Rate limiting check
+            const now = Date.now();
+            if (now - lastCommentTime < COMMENT_RATE_LIMIT) {
+                const remaining = Math.ceil((COMMENT_RATE_LIMIT - (now - lastCommentTime)) / 1000);
+                alert(`Please wait ${remaining} seconds before posting another comment`);
+                return;
+            }
+
+            // Basic bot detection (simple heuristic)
+            if (text.length < 3 || text.split(' ').length < 2) {
+                alert('Comments must be at least 3 characters and contain at least 2 words');
+                return;
+            }
+
+            // Create comment object
+            const comment = {
+                id: Date.now() + Math.random(),
+                text: text,
+                timestamp: Date.now(),
+                userId: generateUserId()
+            };
+
+            // Add new comment
+            comments.push(comment);
+
+            // Keep only last 50 comments to prevent storage bloat
+            if (comments.length > 50) {
+                comments.splice(0, comments.length - 50);
+            }
+
+            // Display comment
+            addCommentToDisplay(text, comment.timestamp, comment.id);
+
+            // Clear input and update timestamp
+            input.value = '';
+            lastCommentTime = now;
+
+            // Focus back to input
+            input.focus();
+        }
+
+        // Generate simple user ID for tracking
+        function generateUserId() {
+            let userId = sessionStorage.getItem('user_id');
+            if (!userId) {
+                userId = 'user_' + Math.random().toString(36).substr(2, 9);
+                sessionStorage.setItem('user_id', userId);
+            }
+            return userId;
+        }
+
+        // Escape HTML to prevent XSS
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Initialize comment system
+        document.addEventListener('DOMContentLoaded', function() {
+            const commentInput = document.getElementById('comment-input');
+            const commentSubmit = document.getElementById('comment-submit');
+
+            // Load existing comments
+            loadComments();
+
+            // Handle comment submission
+            commentSubmit.addEventListener('click', addComment);
+
+            // Handle Enter key in input
+            commentInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    addComment();
+                }
+            });
+
+            // Auto-focus on input when clicking in container
+            document.querySelector('.comment-input-container').addEventListener('click', function() {
+                commentInput.focus();
+            });
         });
 
         // Mobile menu toggle
