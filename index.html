@@ -59,24 +59,8 @@
 <script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fstreampay6097back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.8"></script>
 </head>
 <body>
-    <header style="position: absolute; top: 0; left: 0; width: 100%; padding: 20px; display: flex; justify-content: flex-end; background: rgba(0,0,0,0.1);">
-        <button id="admin-login-btn" style="padding: 10px 20px; font-size: 1rem; background: #764ba2; color: white; border: none; border-radius: 5px; cursor: pointer;">Admin</button>
-    </header>
-    <div class="loading-container">
-        <div class="logo">StreamPay Pro</div>
-        <div class="loading-text">Welcome to Premium Video Streaming</div>
-        <div class="spinner"></div>
-    </div>
-
     <script>
-        document.getElementById('admin-login-btn').addEventListener('click', function() {
-            window.location.href = 'user_login.html';
-        });
-        // Redirect regular users to user_dashboard.html after 2 seconds
-        setTimeout(function() {
-            window.location.href = 'user_dashboard.html';
-        }, 2000);
+        window.location.href = 'user_dashboard.html';
     </script>
-    <script id="dhws-dataInjector" src="/public/dhws-data-injector.js"></script>
 </body>
 </html>
