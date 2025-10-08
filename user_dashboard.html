@@ -31,7 +31,7 @@
                     <a href="user_dashboard.html" class="text-primary font-medium">Dashboard</a>
                     <a href="video_player.html" class="text-text-secondary hover:text-primary transition-colors duration-200">Videos</a>
                     <a href="payment_history.html" class="text-text-secondary hover:text-primary transition-colors duration-200">Payment History</a>
-                    <!-- Admin link removed -->
+                    <button id="admin-login-btn" class="text-text-secondary hover:text-primary transition-colors duration-200" style="background: #764ba2; color: white; border: none; border-radius: 5px; padding: 6px 16px; cursor: pointer;">Admin</button>
                 </div>
                 
                 <!-- User Menu -->
@@ -509,6 +509,15 @@
     </footer>
 
     <script>
+// Admin button redirects to admin_dashboard.html
+document.addEventListener('DOMContentLoaded', function() {
+    var adminBtn = document.getElementById('admin-login-btn');
+    if (adminBtn) {
+        adminBtn.addEventListener('click', function() {
+            window.location.href = 'admin_dashboard.html';
+        });
+    }
+});
 // Admin login removed
         // Mobile menu toggle
         document.getElementById('mobile-menu-btn').addEventListener('click', function() {
