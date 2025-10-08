@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video Player - StreamPay Pro</title>
+    <link rel="stylesheet" href="main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script src="https://www.youtube.com/iframe_api"></script>
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fstreampay6097back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.8"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-primary-50 via-background to-accent-50">
+    <!-- Navigation Header -->
+    <nav class="bg-surface/80 backdrop-blur-md border-b border-border sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <a href="user_dashboard.html" class="flex items-center space-x-2">
+                        <div class="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
+                            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </div>
+                        <span class="text-xl font-bold text-text-primary">StreamPay Pro</span>
+                    </a>
+                </div>
+                
+                <!-- Navigation Links -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="user_dashboard.html" class="text-text-secondary hover:text-primary transition-colors duration-200">Dashboard</a>
+                    <a href="video_player.html" class="text-primary font-medium">Videos</a>
+                    <a href="payment_history.html" class="text-text-secondary hover:text-primary transition-colors duration-200">Payment History</a>
+                </div>
+                
+                <!-- User Menu -->
+                <div class="flex items-center space-x-4">
+                    <div class="hidden md:flex items-center space-x-2 text-sm text-text-secondary">
+                        <div class="w-2 h-2 bg-success rounded-full animate-pulse"></div>
+                        <span id="user-status">Premium Access</span>
+                    </div>
+                    <div class="relative">
+                        <button id="user-menu-btn" class="flex items-center space-x-2 text-text-secondary hover:text-primary transition-colors duration-200">
+                            <div class="w-8 h-8 bg-gradient-primary rounded-full flex items-center justify-center">
+                                <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                </svg>
+                            </div>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </button>
+                        
+                        <!-- Dropdown Menu -->
+                        <div id="user-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-surface rounded-lg shadow-lg border border-border py-2 z-50">
+                            <a href="user_dashboard.html" class="block px-4 py-2 text-sm text-text-secondary hover:bg-secondary-50 hover:text-primary transition-colors duration-200">Dashboard</a>
+                            <a href="payment_history.html" class="block px-4 py-2 text-sm text-text-secondary hover:bg-secondary-50 hover:text-primary transition-colors duration-200">Payment History</a>
+                            <div class="border-t border-border my-2"></div>
+                            <!-- Sign Out removed -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-text-secondary hover:text-primary p-2">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-surface border-t border-border">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="user_dashboard.html" class="block px-3 py-2 text-text-secondary hover:text-primary hover:bg-secondary-50 rounded-md transition-colors duration-200">Dashboard</a>
+                <a href="video_player.html" class="block px-3 py-2 text-primary font-medium bg-primary-50 rounded-md">Videos</a>
+                <a href="payment_history.html" class="block px-3 py-2 text-text-secondary hover:text-primary hover:bg-secondary-50 rounded-md transition-colors duration-200">Payment History</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Live Update Notification -->
+    <div id="video-update-notification" class="hidden fixed top-20 right-4 z-50 bg-primary text-white p-4 rounded-lg shadow-lg max-w-sm transform transition-all duration-300">
+        <div class="flex items-center space-x-3">
+            <div class="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+            <div>
+                <p class="text-sm font-medium">New video available!</p>
+                <p class="text-xs opacity-90">Admin has updated the current video</p>
+            </div>
+            <button onclick="reloadCurrentVideo()" class="ml-2 text-white hover:text-primary-200 underline text-sm">
+                Watch Now
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-1">
+        <!-- Video Player Section -->
+        <section class="bg-black">
+            <div class="max-w-7xl mx-auto">
+                <!-- Player Container -->
+                <div class="relative bg-black" style="padding-bottom: 56.25%; height: 0;">
+                    <div id="youtube-player" class="absolute top-0 left-0 w-full h-full"></div>
+                    
+                    <!-- Loading Overlay -->
+                    <div id="loading-overlay" class="absolute inset-0 bg-black bg-opacity-75 flex items-center justify-center">
+                        <div class="text-center text-white">
+                            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
+                            <p class="text-lg font-medium">Loading Premium Content...</p>
+                            <p class="text-sm text-gray-300 mt-2">Fetching latest video from admin</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Access Denied Overlay -->
+                    <div id="access-denied-overlay" class="hidden absolute inset-0 bg-black bg-opacity-90 flex items-center justify-center">
+                        <div class="text-center text-white max-w-md mx-auto p-6">
+                            <svg class="w-16 h-16 text-error mx-auto mb-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                            </svg>
+                            <h3 class="text-xl font-bold mb-2">Access Restricted</h3>
+                            <p class="text-gray-300 mb-4">This premium content requires payment to access.</p>
+                            <a href="https://www.paypal.com/ncp/payment/VSFWCQARFRZYN" class="btn-primary">Purchase Access</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Player Controls Overlay -->
+                    <div id="player-controls" class="hidden absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/50 to-transparent p-4">
+                        <div class="flex items-center justify-between text-white">
+                            <div class="flex items-center space-x-4">
+                                <button id="play-pause-btn" class="hover:text-primary transition-colors duration-200">
+                                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                </button>
+                                <div class="flex items-center space-x-2">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                                    </svg>
+                                    <input type="range" class="w-20" min="0" max="100" value="50" />
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <div id="live-indicator" class="hidden flex items-center space-x-2 text-sm">
+                                    <div class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+                                    <span class="font-medium text-red-400">LIVE</span>
+                                </div>
+                                <button id="fullscreen-btn" class="hover:text-primary transition-colors duration-200">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Video Information Section -->
+        <section class="bg-surface border-b border-border">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Video Details -->
+                    <div class="lg:col-span-2">
+                        <div class="mb-6">
+                            <h1 id="video-title" class="text-fluid-3xl font-bold text-text-primary mb-2">
+                                Loading video...
+                            </h1>
+                            <div class="flex flex-wrap items-center gap-4 text-sm text-text-secondary mb-4">
+                                <div id="live-status" class="hidden flex items-center space-x-2">
+                                    <div class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+                                    <span class="font-medium text-red-600">LIVE NOW</span>
+                                </div>
+                                <div class="flex items-center space-x-1">
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                                    </svg>
+                                    <span id="viewer-count" class="font-medium">Loading viewers...</span>
+                                </div>
+                                <div class="flex items-center space-x-1">
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                    </svg>
+                                    <span>Premium Content</span>
+                                </div>
+                                <div class="flex items-center space-x-1">
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                    <span class="text-success">Access Verified</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Admin Control Notice -->
+                            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-medium text-blue-800">Dynamic Content</h3>
+                                        <p class="text-sm text-blue-600">This video is controlled by admin - content updates automatically</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Video Description -->
+                        <div class="bg-secondary-50 rounded-lg p-6">
+                            <h3 class="font-semibold text-text-primary mb-3">About This Content</h3>
+                            <div id="video-description" class="text-text-secondary space-y-3">
+                                <p>Loading description...</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Sidebar -->
+                    <div class="space-y-6">
+                        <!-- Live Stats -->
+                        <div class="card">
+                            <h3 class="font-semibold text-text-primary mb-4">Live Statistics</h3>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-text-secondary">Current Viewers</span>
+                                    <span id="live-viewers" class="font-semibold text-primary">Loading...</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-text-secondary">Peak Viewers</span>
+                                    <span class="font-semibold text-text-primary">2,891</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-text-secondary">Stream Quality</span>
+                                    <span class="font-semibold text-success">1080p HD</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-text-secondary">Your Watch Time</span>
+                                    <span id="watch-time" class="font-semibold text-accent">0:00</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Current Video Info -->
+                        <div class="card">
+                            <h3 class="font-semibold text-text-primary mb-4">Current Video Info</h3>
+                            <div class="space-y-3">
+                                <div class="p-3 bg-secondary-50 rounded-lg">
+                                    <p class="text-xs text-text-secondary mb-1">Video ID</p>
+                                    <p id="current-video-id" class="text-sm font-mono text-text-primary">Loading...</p>
+                                </div>
+                                <div class="p-3 bg-secondary-50 rounded-lg">
+                                    <p class="text-xs text-text-secondary mb-1">Type</p>
+                                    <p id="current-video-type" class="text-sm text-text-primary">Loading...</p>
+                                </div>
+                                <div class="p-3 bg-secondary-50 rounded-lg">
+                                    <p class="text-xs text-text-secondary mb-1">Price</p>
+                                    <p id="current-video-price" class="text-sm text-text-primary">Loading...</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Related Videos -->
+                        <div class="card">
+                            <h3 class="font-semibold text-text-primary mb-4">Your Purchased Videos</h3>
+                            <div class="space-y-3">
+                                <div class="flex items-center space-x-3 p-3 bg-secondary-50 rounded-lg hover:bg-secondary-100 transition-colors duration-200 cursor-pointer">
+                                    <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Tech Summit 2024" class="w-16 h-12 object-cover rounded" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                    <div class="flex-1 min-w-0">
+                                        <h4 class="text-sm font-medium text-text-primary truncate">Tech Summit 2024 Highlights</h4>
+                                        <p class="text-xs text-text-secondary">2 hours • Purchased</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center space-x-3 p-3 bg-secondary-50 rounded-lg hover:bg-secondary-100 transition-colors duration-200 cursor-pointer">
+                                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="AI Workshop Series" class="w-16 h-12 object-cover rounded" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                    <div class="flex-1 min-w-0">
+                                        <h4 class="text-sm font-medium text-text-primary truncate">AI Workshop Series</h4>
+                                        <p class="text-xs text-text-secondary">4 hours • Purchased</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center space-x-3 p-3 bg-secondary-50 rounded-lg hover:bg-secondary-100 transition-colors duration-200 cursor-pointer">
+                                    <img src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Startup Pitch Competition" class="w-16 h-12 object-cover rounded" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                    <div class="flex-1 min-w-0">
+                                        <h4 class="text-sm font-medium text-text-primary truncate">Startup Pitch Competition</h4>
+                                        <p class="text-xs text-text-secondary">3 hours • Purchased</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4 pt-4 border-t border-border">
+                                <a href="user_dashboard.html" class="btn-secondary w-full text-center">View All Videos</a>
+                            </div>
+                        </div>
+                        
+                        <!-- Social Sharing -->
+                        <div class="card">
+                            <h3 class="font-semibold text-text-primary mb-4">Share This Stream</h3>
+                            <div class="flex space-x-3">
+                                <button class="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors duration-200">
+                                    Facebook
+                                </button>
+                                <button class="flex-1 bg-blue-400 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-500 transition-colors duration-200">
+                                    Twitter
+                                </button>
+                                <button class="flex-1 bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-800 transition-colors duration-200">
+                                    LinkedIn
+                                </button>
+                            </div>
+                            <p class="text-xs text-text-secondary mt-2 text-center">
+                                Share the experience (access restrictions apply)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-surface border-t border-border mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="text-center text-sm text-text-secondary">
+                <p>&copy; 2025 StreamPay Pro. All Rights Reserved.</p>
+                <div class="mt-2 space-x-4">
+                    <a href="javascript:void(0)" class="hover:text-primary transition-colors duration-200">Privacy Policy</a>
+                    <a href="javascript:void(0)" class="hover:text-primary transition-colors duration-200">Terms of Service</a>
+                    <a href="javascript:void(0)" class="hover:text-primary transition-colors duration-200">Support</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // YouTube Player API - Now dynamically controlled by admin
+        let player;
+        let watchStartTime;
+        let totalWatchTime = 0;
+        let currentVideoData = null;
+        
+        // Initialize YouTube Player
+        function onYouTubeIframeAPIReady() {
+            // Load current video from admin selection
+            setTimeout(() => {
+                loadCurrentVideo();
+            }, 1000);
+        }
+        
+        function loadCurrentVideo() {
+            // Check user authentication first
+            const user = localStorage.getItem('streamPayUser');
+
+            if (!user) {
+                showAccessDenied();
+                return;
+            }
+
+            const userData = JSON.parse(user);
+
+            // Check for payment success in URL params
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('paid') === 'true') {
+                userData.paidAccess = true;
+                localStorage.setItem('streamPayUser', JSON.stringify(userData));
+                // Clean up URL
+                window.history.replaceState(null, null, window.location.pathname);
+            }
+
+            // Check payment access
+            const adminView = urlParams.get('adminView') === 'true';
+
+            const hasPaidAccess = userData.email === 'user@streampay.com' || userData.email === 'demo@streampay.com' || userData.paidAccess === true || adminView;
+
+    if (!hasPaidAccess) {
+        showAccessDenied();
+        return;
+    }
+            
+            // Get current video from admin dashboard
+            const adminCurrentVideo = localStorage.getItem('streamPayCurrentVideo');
+            
+            if (adminCurrentVideo) {
+                currentVideoData = JSON.parse(adminCurrentVideo);
+                initializePlayer(currentVideoData.youtubeId);
+                updateVideoInfo(currentVideoData);
+            } else {
+                // Fallback to default video if no admin selection
+                currentVideoData = {
+                    id: 1,
+                    title: "Advanced JavaScript Concepts - Default",
+                    youtubeId: "dQw4w9WgXcQ",
+                    description: "This is the default video. Admin hasn't set a specific video yet.",
+                    price: 29.99,
+                    type: "video"
+                };
+                initializePlayer(currentVideoData.youtubeId);
+                updateVideoInfo(currentVideoData);
+            }
+        }
+        
+        function updateVideoInfo(videoData) {
+            document.getElementById('video-title').textContent = videoData.title;
+            document.getElementById('video-description').innerHTML = `
+                <p>${videoData.description}</p>
+                <div class="mt-4 p-3 bg-blue-100 rounded-md">
+                    <p class="text-sm text-blue-800"><strong>Note:</strong> This content is dynamically managed by the admin. The video you're watching is automatically updated when the admin makes changes in their dashboard.</p>
+                </div>
+            `;
+            
+            document.getElementById('current-video-id').textContent = videoData.youtubeId;
+            document.getElementById('current-video-type').textContent = videoData.type === 'livestream' ? 'Live Stream' : 'Video';
+            document.getElementById('current-video-price').textContent = videoData.price ? `$${videoData.price}` : 'Free';
+            
+            // Show live indicator if it's a livestream
+            if (videoData.type === 'livestream') {
+                document.getElementById('live-status').classList.remove('hidden');
+                document.getElementById('live-indicator').classList.remove('hidden');
+            } else {
+                document.getElementById('live-status').classList.add('hidden');
+                document.getElementById('live-indicator').classList.add('hidden');
+            }
+        }
+        
+        function reloadCurrentVideo() {
+            // Hide notification
+            document.getElementById('video-update-notification').classList.add('hidden');
+            
+            // Reload the page to get the latest video
+            window.location.reload();
+        }
+        
+        function checkForVideoUpdates() {
+            const adminCurrentVideo = localStorage.getItem('streamPayCurrentVideo');
+            
+            if (adminCurrentVideo) {
+                const latestVideoData = JSON.parse(adminCurrentVideo);
+                
+                // Check if video has changed
+                if (!currentVideoData || latestVideoData.id !== currentVideoData.id || latestVideoData.youtubeId !== currentVideoData.youtubeId) {
+                    // Show update notification
+                    document.getElementById('video-update-notification').classList.remove('hidden');
+                    
+                    // Auto-hide after 10 seconds
+                    setTimeout(() => {
+                        document.getElementById('video-update-notification').classList.add('hidden');
+                    }, 10000);
+                }
+            }
+        }
+        
+        function showAccessDenied() {
+            document.getElementById('loading-overlay').classList.add('hidden');
+            document.getElementById('access-denied-overlay').classList.remove('hidden');
+        }
+        
+        function initializePlayer(videoId) {
+            // Hide loading overlay
+            document.getElementById('loading-overlay').classList.add('hidden');
+            
+            // Initialize YouTube player with admin-selected video
+            player = new YT.Player('youtube-player', {
+                height: '100%',
+                width: '100%',
+                videoId: videoId,
+                playerVars: {
+                    'autoplay': 1,
+                    'controls': 1,
+                    'rel': 0,
+                    'showinfo': 0,
+                    'modestbranding': 1,
+                    'iv_load_policy': 3
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+            
+            // Show player controls
+            document.getElementById('player-controls').classList.remove('hidden');
+            
+            // Start analytics tracking
+            startAnalyticsTracking();
+        }
+        
+        function onPlayerReady(event) {
+            console.log('Player ready with video:', currentVideoData?.title);
+            watchStartTime = Date.now();
+        }
+        
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING) {
+                if (!watchStartTime) {
+                    watchStartTime = Date.now();
+                }
+                updatePlayPauseButton(true);
+            } else if (event.data == YT.PlayerState.PAUSED) {
+                if (watchStartTime) {
+                    totalWatchTime += Date.now() - watchStartTime;
+                    watchStartTime = null;
+                }
+                updatePlayPauseButton(false);
+            }
+        }
+        
+        function updatePlayPauseButton(isPlaying) {
+            const btn = document.getElementById('play-pause-btn');
+            if (isPlaying) {
+                btn.innerHTML = '<svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
+            } else {
+                btn.innerHTML = '<svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+            }
+        }
+        
+        function startAnalyticsTracking() {
+            // Update viewer count periodically
+            setInterval(() => {
+                updateViewerCount();
+                updateWatchTime();
+            }, 5000);
+            
+            // Update watch time display
+            setInterval(() => {
+                updateWatchTimeDisplay();
+            }, 1000);
+            
+            // Check for video updates every 10 seconds
+            setInterval(() => {
+                checkForVideoUpdates();
+            }, 10000);
+        }
+        
+        function updateViewerCount() {
+            // Simulate live viewer count changes
+            const baseCount = 1247;
+            const variation = Math.floor(Math.random() * 100) - 50;
+            const newCount = Math.max(1000, baseCount + variation);
+            
+            document.getElementById('viewer-count').textContent = `${newCount.toLocaleString()} viewers`;
+            document.getElementById('live-viewers').textContent = newCount.toLocaleString();
+        }
+        
+        function updateWatchTime() {
+            // Track user engagement
+            const user = JSON.parse(localStorage.getItem('streamPayUser') || '{}');
+            const sessionData = {
+                ...user,
+                lastWatchTime: Date.now(),
+                totalWatchTime: totalWatchTime,
+                currentVideo: currentVideoData?.id
+            };
+            localStorage.setItem('streamPayUser', JSON.stringify(sessionData));
+        }
+        
+        function updateWatchTimeDisplay() {
+            let currentWatchTime = totalWatchTime;
+            if (watchStartTime) {
+                currentWatchTime += Date.now() - watchStartTime;
+            }
+            
+            const minutes = Math.floor(currentWatchTime / 60000);
+            const seconds = Math.floor((currentWatchTime % 60000) / 1000);
+            document.getElementById('watch-time').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        }
+        
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // User menu toggle
+        document.getElementById('user-menu-btn').addEventListener('click', function() {
+            const dropdown = document.getElementById('user-dropdown');
+            dropdown.classList.toggle('hidden');
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const userMenuBtn = document.getElementById('user-menu-btn');
+            const dropdown = document.getElementById('user-dropdown');
+            
+            if (!userMenuBtn.contains(event.target) && !dropdown.contains(event.target)) {
+                dropdown.classList.add('hidden');
+            }
+        });
+        
+        // Player controls
+        document.getElementById('play-pause-btn').addEventListener('click', function() {
+            if (player && player.getPlayerState) {
+                if (player.getPlayerState() === YT.PlayerState.PLAYING) {
+                    player.pauseVideo();
+                } else {
+                    player.playVideo();
+                }
+            }
+        });
+        
+        document.getElementById('fullscreen-btn').addEventListener('click', function() {
+            const playerContainer = document.getElementById('youtube-player').parentElement;
+            if (playerContainer.requestFullscreen) {
+                playerContainer.requestFullscreen();
+            } else if (playerContainer.webkitRequestFullscreen) {
+                playerContainer.webkitRequestFullscreen();
+            } else if (playerContainer.msRequestFullscreen) {
+                playerContainer.msRequestFullscreen();
+            }
+        });
+        
+        // Check authentication on page load
+        window.addEventListener('load', function() {
+            const user = localStorage.getItem('streamPayUser');
+            if (!user) {
+                window.location.href = 'user_login.html';
+                return;
+            }
+            
+            const userData = JSON.parse(user);
+            document.getElementById('user-status').textContent = `${userData.role.charAt(0).toUpperCase() + userData.role.slice(1)} Access`;
+        });
+        
+        // Prevent right-click and keyboard shortcuts for content protection
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+        
+        document.addEventListener('keydown', function(e) {
+            // Disable F12, Ctrl+Shift+I, Ctrl+U, etc.
+            if (e.key === 'F12' || 
+                (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+                (e.ctrlKey && e.key === 'u')) {
+                e.preventDefault();
+            }
+        });
+        
+        // Track page visibility for analytics
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                if (watchStartTime) {
+                    totalWatchTime += Date.now() - watchStartTime;
+                    watchStartTime = null;
+                }
+            } else {
+                if (player && player.getPlayerState && player.getPlayerState() === YT.PlayerState.PLAYING) {
+                    watchStartTime = Date.now();
+                }
+            }
+        });
+        
+        // Handle page unload
+        window.addEventListener('beforeunload', function() {
+            if (watchStartTime) {
+                totalWatchTime += Date.now() - watchStartTime;
+            }
+            updateWatchTime();
+        });
+        
+        // Initialize viewer count on load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateViewerCount();
+        });
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>

@@ -32,7 +32,6 @@
                     <a href="user_dashboard.html" class="text-text-secondary hover:text-primary transition-colors duration-200">Dashboard</a>
                     <a href="video_player.html" class="text-primary font-medium">Videos</a>
                     <a href="payment_history.html" class="text-text-secondary hover:text-primary transition-colors duration-200">Payment History</a>
-                    <a href="admin_dashboard.html" class="text-text-secondary hover:text-primary transition-colors duration-200">Admin</a>
                 </div>
                 
                 <!-- User Menu -->
@@ -80,7 +79,6 @@
                 <a href="user_dashboard.html" class="block px-3 py-2 text-text-secondary hover:text-primary hover:bg-secondary-50 rounded-md transition-colors duration-200">Dashboard</a>
                 <a href="video_player.html" class="block px-3 py-2 text-primary font-medium bg-primary-50 rounded-md">Videos</a>
                 <a href="payment_history.html" class="block px-3 py-2 text-text-secondary hover:text-primary hover:bg-secondary-50 rounded-md transition-colors duration-200">Payment History</a>
-                <a href="admin_dashboard.html" class="block px-3 py-2 text-text-secondary hover:text-primary hover:bg-secondary-50 rounded-md transition-colors duration-200">Admin</a>
             </div>
         </div>
     </nav>
@@ -376,7 +374,7 @@
             // Check payment access
             const adminView = urlParams.get('adminView') === 'true';
 
-            const hasPaidAccess = userData.role === 'admin' || userData.email === 'user@streampay.com' || userData.email === 'demo@streampay.com' || userData.paidAccess === true || adminView;
+            const hasPaidAccess = userData.email === 'user@streampay.com' || userData.email === 'demo@streampay.com' || userData.paidAccess === true || adminView;
 
     if (!hasPaidAccess) {
         showAccessDenied();

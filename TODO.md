@@ -1,9 +1,15 @@
-# TODO: Update Admin Dashboard User View Link
+# Remove Admin Button Task
 
-## Tasks
-- [x] Change "User View" link in admin_dashboard.html desktop navigation from user_dashboard.html to video_player.html
-- [x] Change "User View" link in admin_dashboard.html mobile menu from user_dashboard.html to video_player.html
+## Overview
+Remove the "Admin" navigation link/button from video_player.html, payment_history.html, and user_login.html. Keep the admin button in user_dashboard.html.
 
-## Notes
-- Admins already bypass PayPal payment in video_player.html due to role check
-- This change allows admins to quickly access the video player from the admin dashboard header
+## Files to Edit
+- video_player.html: Remove Admin link from desktop nav and mobile menu
+- payment_history.html: Remove Admin link from desktop nav and mobile menu
+- user_login.html: Remove Admin link from desktop nav and mobile menu
+
+## Steps
+1. [x] Edit video_player.html to remove Admin link from navigation
+2. [x] Edit payment_history.html to remove Admin link from navigation
+3. [x] Edit user_login.html to remove Admin link from navigation
+4. [x] Verify changes by checking the files
